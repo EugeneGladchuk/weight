@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">WeightOfRing</string>
+    <string name="buttonRing">CALCULATE WEIGHT</string>
+    <string name="buttonGem">CALCULATE CARAT</string>
+    <string name="editTextSize">SIZE</string>
+    <string name="editTextWidth">WIDTH</string>
+    <string name="editTextThickness">THICKNESS</string>
+    <string name="textViewParameters">ENTER RING PARAMETERS</string>
+    <string name="radioButtonGold750">GOLD 750</string>
+    <string name="radioButtonGold585">GOLD 585</string>
+    <string name="radioButtonSilver">SILVER</string>
+    <string name="ButtonResult">RESULT</string>
+
+
+</resources>
