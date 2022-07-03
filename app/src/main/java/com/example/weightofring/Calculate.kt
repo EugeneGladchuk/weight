@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import com.example.weightofring.databinding.ActivityCalculateBinding
 import kotlin.math.floor
-import kotlin.math.roundToInt
 
 class Calculate : Activity() {
 

@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Eugene/AndroidStudioProjects/WeightOfRing/app/src/main/res/layout/activity_calculate.xml" value="0.33" />
+        <entry key="..\:/Users/Eugene/AndroidStudioProjects/WeightOfRing/app/src/main/res/layout/activity_calculate_carat.xml" value="0.33" />
         <entry key="..\:/Users/Eugene/AndroidStudioProjects/WeightOfRing/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Eugene/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.2558876811594203" />
       </map>
     </option>
   </component>

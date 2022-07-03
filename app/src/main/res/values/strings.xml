@@ -6,10 +6,16 @@
     <string name="editTextWidth">WIDTH</string>
     <string name="editTextThickness">THICKNESS</string>
     <string name="textViewParameters">ENTER RING PARAMETERS</string>
+    <string name="textViewParametersGem">ENTER GEM PARAMETERS</string>
     <string name="radioButtonGold750">GOLD 750</string>
     <string name="radioButtonGold585">GOLD 585</string>
     <string name="radioButtonSilver">SILVER</string>
     <string name="ButtonResult">RESULT</string>
+    <string name="CutTextView">CUT TYPE</string>
+    <string name="DensityTextView">GEM DENSITY</string>
+    <string name="LengthTextView">GEM LENGTH</string>
+    <string name="WidthTextView">GEM WIDTH</string>
+    <string name="DepthTextView">GEM DEPTH</string>
 
 
 </resources>

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeightOfRing">
         <activity
+            android:name=".CalculateCarat"
+            android:exported="false" />
+        <activity
             android:name=".Calculate"
             android:exported="false" />
         <activity
