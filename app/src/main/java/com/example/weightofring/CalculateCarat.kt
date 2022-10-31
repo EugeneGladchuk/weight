@@ -9,14 +9,13 @@ import com.example.weightofring.databinding.ActivityCalculateCaratBinding
 import kotlin.math.floor
 
 
-
 class CalculateCarat : Activity() {
 
     lateinit var binding: ActivityCalculateCaratBinding
     lateinit var adapter: ArrayAdapter<GemParameters>
     lateinit var adapterCut: ArrayAdapter<CutType>
 
-    var imageArrayDiamond:IntArray = intArrayOf(
+    var imageArrayDiamond: IntArray = intArrayOf(
         R.drawable.rounddiamond,
         R.drawable.princdiamond,
         R.drawable.ovaldiamond,
@@ -24,7 +23,7 @@ class CalculateCarat : Activity() {
         R.drawable.bagdiamond,
         R.drawable.marcdiamond
     )
-    var imageArrayRubin:IntArray = intArrayOf(
+    var imageArrayRubin: IntArray = intArrayOf(
         R.drawable.roundrubin,
         R.drawable.princrub,
         R.drawable.ovalrubi,
@@ -32,7 +31,7 @@ class CalculateCarat : Activity() {
         R.drawable.bagrubi,
         R.drawable.marcrubi
     )
-    var imageArrayCitrin:IntArray = intArrayOf(
+    var imageArrayCitrin: IntArray = intArrayOf(
         R.drawable.roundcitrin,
         R.drawable.princcitrin,
         R.drawable.ovalcitrin,
@@ -40,7 +39,7 @@ class CalculateCarat : Activity() {
         R.drawable.bagcitrin,
         R.drawable.marccitrin
     )
-    var imageArrayEmerald:IntArray = intArrayOf(
+    var imageArrayEmerald: IntArray = intArrayOf(
         R.drawable.roundemerald,
         R.drawable.princemer,
         R.drawable.ovalemer,
@@ -48,7 +47,7 @@ class CalculateCarat : Activity() {
         R.drawable.bagemer,
         R.drawable.marcemer
     )
-    var imageArrayAmethyst:IntArray = intArrayOf(
+    var imageArrayAmethyst: IntArray = intArrayOf(
         R.drawable.roundamethyst,
         R.drawable.princamet,
         R.drawable.ovalamet,
@@ -56,7 +55,7 @@ class CalculateCarat : Activity() {
         R.drawable.bagamet,
         R.drawable.marcamet
     )
-    var imageArrayAquamarine:IntArray = intArrayOf(
+    var imageArrayAquamarine: IntArray = intArrayOf(
         R.drawable.roundaqua,
         R.drawable.princaqua,
         R.drawable.ovalaqua,
@@ -67,55 +66,49 @@ class CalculateCarat : Activity() {
 
 
     val gemParameters = mutableListOf(
-        GemParameters(nameGem = "Diamond",densityGem = "3.52", nameEnum = GemParameters.NameGemEnum.DIAMOND),
-        GemParameters(nameGem = "Rubin",densityGem = "3.99", nameEnum = GemParameters.NameGemEnum.RUBIN),
-        GemParameters(nameGem = "Emerald",densityGem = "2.71", nameEnum = GemParameters.NameGemEnum.EMERALD),
-        GemParameters(nameGem = "Сitrine",densityGem = "2.65", nameEnum = GemParameters.NameGemEnum.CITRINE),
-        GemParameters(nameGem = "Amethyst",densityGem = "2.65", nameEnum = GemParameters.NameGemEnum.AMETHYST),
-        GemParameters(nameGem = "Aquamarine",densityGem = "2.69", nameEnum = GemParameters.NameGemEnum.AQUAMARINE)
+        GemParameters(
+            nameGem = "Diamond",
+            densityGem = "3.52",
+            nameEnum = GemParameters.NameGemEnum.DIAMOND
+        ),
+        GemParameters(
+            nameGem = "Rubin",
+            densityGem = "3.99",
+            nameEnum = GemParameters.NameGemEnum.RUBIN
+        ),
+        GemParameters(
+            nameGem = "Emerald",
+            densityGem = "2.71",
+            nameEnum = GemParameters.NameGemEnum.EMERALD
+        ),
+        GemParameters(
+            nameGem = "Сitrine",
+            densityGem = "2.65",
+            nameEnum = GemParameters.NameGemEnum.CITRINE
+        ),
+        GemParameters(
+            nameGem = "Amethyst",
+            densityGem = "2.65",
+            nameEnum = GemParameters.NameGemEnum.AMETHYST
+        ),
+        GemParameters(
+            nameGem = "Aquamarine",
+            densityGem = "2.69",
+            nameEnum = GemParameters.NameGemEnum.AQUAMARINE
+        )
     )
-    var selectedGemParameter: GemParameters = gemParameters[0]
-
-    private val gemParametersListener = object : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(p0: AdapterView<*>?, view: View?, positionMat: Int, id: Long) {
-            val differentDensity = gemParameters[positionMat]
-            selectedGemParameter = differentDensity
-
-            val positionCut = selectedCutParameters.form.toInt()
-
-            if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.DIAMOND) {
-                binding.imageView.setImageResource(imageArrayDiamond[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.RUBIN) {
-                binding.imageView.setImageResource(imageArrayRubin[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.EMERALD) {
-                binding.imageView.setImageResource(imageArrayEmerald[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.CITRINE) {
-                binding.imageView.setImageResource(imageArrayCitrin[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.AMETHYST) {
-                binding.imageView.setImageResource(imageArrayAmethyst[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.AQUAMARINE) {
-                binding.imageView.setImageResource(imageArrayAquamarine[positionCut])
-            }
-
-
-        }
-
-
-
-        override fun onNothingSelected(position: AdapterView<*>?) {
-
-        }
-    }
 
     val cutType = mutableListOf(
         CutType(name = "Round", form = "0", calculationCoefficient = "0.0018"),
         CutType(name = "Princess", form = "1", calculationCoefficient = "0.0023"),
-        CutType(name = "Oval",form = "2", calculationCoefficient = "0.0018"),
-        CutType(name = "Emerald",form = "3", calculationCoefficient = "0.00245"),
-        CutType(name = "Baguette",form = "4", calculationCoefficient = "0.0029"),
-        CutType(name = "Marquis",form = "5", calculationCoefficient = "0.0016")
+        CutType(name = "Oval", form = "2", calculationCoefficient = "0.0018"),
+        CutType(name = "Emerald", form = "3", calculationCoefficient = "0.00245"),
+        CutType(name = "Baguette", form = "4", calculationCoefficient = "0.0029"),
+        CutType(name = "Marquis", form = "5", calculationCoefficient = "0.0016")
     )
     var selectedCutParameters: CutType = cutType[0]
+
+    var selectedGemParameter: GemParameters = gemParameters[0]
 
     private val cutTypeListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -124,27 +117,65 @@ class CalculateCarat : Activity() {
 
             val positionCut = selectedCutParameters.form.toInt()
 
-            if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.DIAMOND) {
-                binding.imageView.setImageResource(imageArrayDiamond[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.RUBIN) {
-                binding.imageView.setImageResource(imageArrayRubin[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.EMERALD) {
-                binding.imageView.setImageResource(imageArrayEmerald[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.CITRINE) {
-                binding.imageView.setImageResource(imageArrayCitrin[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.AMETHYST) {
-                binding.imageView.setImageResource(imageArrayAmethyst[positionCut])
-            } else if (selectedGemParameter.nameEnum == GemParameters.NameGemEnum.AQUAMARINE) {
-                binding.imageView.setImageResource(imageArrayAquamarine[positionCut])
+            when (selectedGemParameter.nameEnum) {
+                GemParameters.NameGemEnum.DIAMOND -> {
+                    binding.imageView.setImageResource(imageArrayDiamond[positionCut])
+                }
+                GemParameters.NameGemEnum.RUBIN -> {
+                    binding.imageView.setImageResource(imageArrayRubin[positionCut])
+                }
+                GemParameters.NameGemEnum.EMERALD -> {
+                    binding.imageView.setImageResource(imageArrayEmerald[positionCut])
+                }
+                GemParameters.NameGemEnum.CITRINE -> {
+                    binding.imageView.setImageResource(imageArrayCitrin[positionCut])
+                }
+                GemParameters.NameGemEnum.AMETHYST -> {
+                    binding.imageView.setImageResource(imageArrayAmethyst[positionCut])
+                }
+                GemParameters.NameGemEnum.AQUAMARINE -> {
+                    binding.imageView.setImageResource(imageArrayAquamarine[positionCut])
+                }
             }
-
         }
 
         override fun onNothingSelected(position: AdapterView<*>?) {
-
         }
     }
 
+
+    private val gemParametersListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(p0: AdapterView<*>?, view: View?, positionMat: Int, id: Long) {
+            val differentDensity = gemParameters[positionMat]
+            selectedGemParameter = differentDensity
+
+            val positionCut = selectedCutParameters.form.toInt()
+
+            when (selectedGemParameter.nameEnum) {
+                GemParameters.NameGemEnum.DIAMOND -> {
+                    binding.imageView.setImageResource(imageArrayDiamond[positionCut])
+                }
+                GemParameters.NameGemEnum.RUBIN -> {
+                    binding.imageView.setImageResource(imageArrayRubin[positionCut])
+                }
+                GemParameters.NameGemEnum.EMERALD -> {
+                    binding.imageView.setImageResource(imageArrayEmerald[positionCut])
+                }
+                GemParameters.NameGemEnum.CITRINE -> {
+                    binding.imageView.setImageResource(imageArrayCitrin[positionCut])
+                }
+                GemParameters.NameGemEnum.AMETHYST -> {
+                    binding.imageView.setImageResource(imageArrayAmethyst[positionCut])
+                }
+                GemParameters.NameGemEnum.AQUAMARINE -> {
+                    binding.imageView.setImageResource(imageArrayAquamarine[positionCut])
+                }
+            }
+        }
+
+        override fun onNothingSelected(position: AdapterView<*>?) {
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -206,7 +237,7 @@ class CalculateCarat : Activity() {
         val typeCutCalculate = selectedCutParameters.calculationCoefficient.toDouble()
 
         val sizeGem: Double
-        val sizePrincess = (lengthGem+widthGem)/2
+        val sizePrincess = (lengthGem + widthGem) / 2
 
         if (selectedCutParameters.name == "Oval") {
             sizeGem = sizePrincess * sizePrincess * depthGem
@@ -216,10 +247,10 @@ class CalculateCarat : Activity() {
 
         val gemDensity = sizeGem * densityGemCalculate
         val gemWeightResult = gemDensity * typeCutCalculate
-        val gemWeightResultFloor = floor(gemWeightResult * 1000.0) /1000.0
+        val gemWeightResultFloor = floor(gemWeightResult * 1000.0) / 1000.0
 
         val gemWeightGramms = gemWeightResult * 0.2
-        val gemWeightGrammsFloor = floor(gemWeightGramms * 1000.0) /1000.0
+        val gemWeightGrammsFloor = floor(gemWeightGramms * 1000.0) / 1000.0
 
         gemWeightResultFloor.toString().also { binding.textViewResult.text = it }
         gemWeightGrammsFloor.toString().also { binding.resultGemGrammTV.text = it }
@@ -234,6 +265,7 @@ class CalculateCarat : Activity() {
         override fun toString(): String {
             return nameGem
         }
+
         enum class NameGemEnum {
             DIAMOND,
             RUBIN,
