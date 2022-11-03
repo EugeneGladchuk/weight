@@ -1,12 +1,12 @@
 package com.example.weightofring
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import com.example.weightofring.databinding.FragmentCalculateGemBinding
 import kotlin.math.floor
 
@@ -18,87 +18,13 @@ class CalculateGemFragment : Fragment() {
     lateinit var adapter: ArrayAdapter<GemParameters>
     lateinit var adapterCut: ArrayAdapter<CutType>
 
-    var imageArrayDiamond: IntArray = intArrayOf(
-        R.drawable.rounddiamond,
-        R.drawable.princdiamond,
-        R.drawable.ovaldiamond,
-        R.drawable.emerdiamond,
-        R.drawable.bagdiamond,
-        R.drawable.marcdiamond
-    )
-    var imageArrayRubin: IntArray = intArrayOf(
-        R.drawable.roundrubin,
-        R.drawable.princrub,
-        R.drawable.ovalrubi,
-        R.drawable.emerrubi,
-        R.drawable.bagrubi,
-        R.drawable.marcrubi
-    )
-    var imageArrayCitrin: IntArray = intArrayOf(
-        R.drawable.roundcitrin,
-        R.drawable.princcitrin,
-        R.drawable.ovalcitrin,
-        R.drawable.emercitrin,
-        R.drawable.bagcitrin,
-        R.drawable.marccitrin
-    )
-    var imageArrayEmerald: IntArray = intArrayOf(
-        R.drawable.roundemerald,
-        R.drawable.princemer,
-        R.drawable.ovalemer,
-        R.drawable.emeremer,
-        R.drawable.bagemer,
-        R.drawable.marcemer
-    )
-    var imageArrayAmethyst: IntArray = intArrayOf(
-        R.drawable.roundamethyst,
-        R.drawable.princamet,
-        R.drawable.ovalamet,
-        R.drawable.emeramet,
-        R.drawable.bagamet,
-        R.drawable.marcamet
-    )
-    var imageArrayAquamarine: IntArray = intArrayOf(
-        R.drawable.roundaqua,
-        R.drawable.princaqua,
-        R.drawable.ovalaqua,
-        R.drawable.emeraqua,
-        R.drawable.bagaqua,
-        R.drawable.marcaqua
-    )
-
-
     val gemParameters = mutableListOf(
-        GemParameters(
-            nameGem = "Diamond",
-            densityGem = "3.52",
-            nameEnum = GemParameters.NameGemEnum.DIAMOND
-        ),
-        GemParameters(
-            nameGem = "Rubin",
-            densityGem = "3.99",
-            nameEnum = GemParameters.NameGemEnum.RUBIN
-        ),
-        GemParameters(
-            nameGem = "Emerald",
-            densityGem = "2.71",
-            nameEnum = GemParameters.NameGemEnum.EMERALD
-        ),
-        GemParameters(
-            nameGem = "Сitrine",
-            densityGem = "2.65",
-            nameEnum = GemParameters.NameGemEnum.CITRINE
-        ),
-        GemParameters(
-            nameGem = "Amethyst",
-            densityGem = "2.65",
-            nameEnum = GemParameters.NameGemEnum.AMETHYST
-        ),
-        GemParameters(
-            nameGem = "Aquamarine",
-            densityGem = "2.69",
-            nameEnum = GemParameters.NameGemEnum.AQUAMARINE
-        )
+        GemParameters(nameGem = "Diamond", densityGem = "3.52", nameEnum = GemParameters.NameGemEnum.DIAMOND),
+        GemParameters(nameGem = "Rubin", densityGem = "3.99", nameEnum = GemParameters.NameGemEnum.RUBIN),
+        GemParameters(nameGem = "Emerald", densityGem = "2.71", nameEnum = GemParameters.NameGemEnum.EMERALD),
+        GemParameters(nameGem = "Сitrine", densityGem = "2.65", nameEnum = GemParameters.NameGemEnum.CITRINE),
+        GemParameters(nameGem = "Amethyst", densityGem = "2.65", nameEnum = GemParameters.NameGemEnum.AMETHYST),
+        GemParameters(nameGem = "Aquamarine", densityGem = "2.69", nameEnum = GemParameters.NameGemEnum.AQUAMARINE)
     )
 
     val cutType = mutableListOf(
@@ -109,6 +35,7 @@ class CalculateGemFragment : Fragment() {
         CutType(name = "Baguette", form = CutType.CutForm.BAGUETTE, calculationCoefficient = "0.0029"),
         CutType(name = "Marquis", form = CutType.CutForm.MARQUIS, calculationCoefficient = "0.0016")
     )
+
     var selectedCutParameters: CutType = cutType[0]
 
     var selectedGemParameter: GemParameters = gemParameters[0]
@@ -118,64 +45,27 @@ class CalculateGemFragment : Fragment() {
             val differentTypeCut = cutType[position]
             selectedCutParameters = differentTypeCut
 
-            val positionCut = selectedCutParameters.form.position
+            val gemDrawable = GemDrawablesStore.getGemDrawable(selectedCutParameters.form, selectedGemParameter.nameEnum)
 
-            when (selectedGemParameter.nameEnum) {
-                GemParameters.NameGemEnum.DIAMOND -> {
-                    binding.imageView.setImageResource(imageArrayDiamond[positionCut])
-                }
-                GemParameters.NameGemEnum.RUBIN -> {
-                    binding.imageView.setImageResource(imageArrayRubin[positionCut])
-                }
-                GemParameters.NameGemEnum.EMERALD -> {
-                    binding.imageView.setImageResource(imageArrayEmerald[positionCut])
-                }
-                GemParameters.NameGemEnum.CITRINE -> {
-                    binding.imageView.setImageResource(imageArrayCitrin[positionCut])
-                }
-                GemParameters.NameGemEnum.AMETHYST -> {
-                    binding.imageView.setImageResource(imageArrayAmethyst[positionCut])
-                }
-                GemParameters.NameGemEnum.AQUAMARINE -> {
-                    binding.imageView.setImageResource(imageArrayAquamarine[positionCut])
-                }
+            if (gemDrawable != null) {
+                binding.imageView.setImageResource(gemDrawable)
             }
         }
-
         override fun onNothingSelected(position: AdapterView<*>?) {
         }
     }
 
-
-    private val gemParametersListener = object : AdapterView.OnItemSelectedListener {
+    private val gemTypeListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, view: View?, positionMat: Int, id: Long) {
             val differentDensity = gemParameters[positionMat]
             selectedGemParameter = differentDensity
 
-            val positionCut = selectedCutParameters.form.position
+            val gemDrawable = GemDrawablesStore.getGemDrawable(selectedCutParameters.form, selectedGemParameter.nameEnum)
 
-            when (selectedGemParameter.nameEnum) {
-                GemParameters.NameGemEnum.DIAMOND -> {
-                    binding.imageView.setImageResource(imageArrayDiamond[positionCut])
-                }
-                GemParameters.NameGemEnum.RUBIN -> {
-                    binding.imageView.setImageResource(imageArrayRubin[positionCut])
-                }
-                GemParameters.NameGemEnum.EMERALD -> {
-                    binding.imageView.setImageResource(imageArrayEmerald[positionCut])
-                }
-                GemParameters.NameGemEnum.CITRINE -> {
-                    binding.imageView.setImageResource(imageArrayCitrin[positionCut])
-                }
-                GemParameters.NameGemEnum.AMETHYST -> {
-                    binding.imageView.setImageResource(imageArrayAmethyst[positionCut])
-                }
-                GemParameters.NameGemEnum.AQUAMARINE -> {
-                    binding.imageView.setImageResource(imageArrayAquamarine[positionCut])
-                }
-            }
+             if (gemDrawable != null) {
+                 binding.imageView.setImageResource(gemDrawable)
+             }
         }
-
         override fun onNothingSelected(position: AdapterView<*>?) {
         }
     }
@@ -190,6 +80,7 @@ class CalculateGemFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         setupListParameters()
         setupListParameters2()
 
@@ -203,9 +94,7 @@ class CalculateGemFragment : Fragment() {
             } else {
                 gemWeightResult()
             }
-
         }
-
     }
 
     private fun setupListParameters() {
@@ -217,8 +106,7 @@ class CalculateGemFragment : Fragment() {
         )
         binding.densitySpinner.adapter = adapter
 
-        binding.densitySpinner.onItemSelectedListener = gemParametersListener
-
+        binding.densitySpinner.onItemSelectedListener = gemTypeListener
     }
 
     private fun setupListParameters2() {
@@ -231,7 +119,6 @@ class CalculateGemFragment : Fragment() {
         binding.cutSpinner.adapter = adapterCut
 
         binding.cutSpinner.onItemSelectedListener = cutTypeListener
-
     }
 
     private fun gemWeightResult() {
@@ -245,7 +132,7 @@ class CalculateGemFragment : Fragment() {
         val sizeGem: Double
         val sizePrincess = (lengthGem + widthGem) / 2
 
-        if (selectedCutParameters.name == "Oval") {
+        if (selectedCutParameters.form == CutType.CutForm.OVAL) {
             sizeGem = sizePrincess * sizePrincess * depthGem
         } else {
             sizeGem = lengthGem * widthGem * depthGem
@@ -280,7 +167,6 @@ class CalculateGemFragment : Fragment() {
             AMETHYST,
             AQUAMARINE
         }
-
     }
 
     class CutType(
@@ -291,13 +177,14 @@ class CalculateGemFragment : Fragment() {
         override fun toString(): String {
             return name
         }
-        enum class CutForm(val position: Int) {
-            ROUND(0),
-            PRINCESS(1),
-            OVAL(2),
-            EMERALD(3),
-            BAGUETTE(4),
-            MARQUIS(5)
+
+        enum class CutForm {
+            ROUND,
+            PRINCESS,
+            OVAL,
+            EMERALD,
+            BAGUETTE,
+            MARQUIS
         }
     }
 
