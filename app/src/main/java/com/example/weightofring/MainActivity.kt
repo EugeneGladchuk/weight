@@ -1,15 +1,11 @@
 package com.example.weightofring
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.weightofring.databinding.ActivityMainBinding
 
 
-class MainActivity : Activity() {
-
-    //TODO ViewModel without DI или without dagger
-    //MVVM without dagger
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -18,15 +14,13 @@ class MainActivity : Activity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.imageButtonRing.setOnClickListener {
-            val intent = Intent(this,Calculate::class.java)
-            startActivity(intent)
+        if(savedInstanceState == null){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, StartFragment.newInstance())
+                .commit()
         }
 
-        binding.imageButtonGem.setOnClickListener {
-            val intent = Intent(this,CalculateCarat::class.java)
-            startActivity(intent)
-        }
 
     }
+
 }

@@ -16,6 +16,7 @@
     <string name="LengthTextView">GEM LENGTH</string>
     <string name="WidthTextView">GEM WIDTH</string>
     <string name="DepthTextView">GEM DEPTH</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
