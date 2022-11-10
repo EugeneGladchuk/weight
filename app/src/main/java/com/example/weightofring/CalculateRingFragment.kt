@@ -1,18 +1,21 @@
 package com.example.weightofring
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
-import kotlin.math.floor
-
+import java.util.Observer
 
 class CalculateRingFragment : Fragment() {
 
-    private lateinit var binding: FragmentCalculateRingBinding
+    private val viewModel: CalculateRingViewModel by viewModels()
 
+    private lateinit var binding: FragmentCalculateRingBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +28,43 @@ class CalculateRingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        binding.editTextSizeRing.doOnTextChanged { text, start, before, count ->
+//            Log.d(TAG, "editTextSizeRing: text = $text")
+//            Log.d(TAG, "editTextSizeRing: start = $start")
+//            Log.d(TAG, "editTextSizeRing: before = $before")
+//            Log.d(TAG, "editTextSizeRing: count = $count")
+            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            viewModel.updateSize(newValue)
+        }
+
+        binding.editTextWidthRing.doOnTextChanged { text, start, before, count ->
+            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            viewModel.updateWidth(newValue)
+        }
+
+        binding.editTextThicknessRing.doOnTextChanged { text, start, before, count ->
+            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            viewModel.updateThickness(newValue)
+        }
+
+        viewModel.size.observe(viewLifecycleOwner) { newSize ->
+            if (newSize != binding.editTextSizeRing.text.toString()){
+                binding.editTextSizeRing.setText(newSize)
+            }
+        }
+
+        viewModel.width.observe(viewLifecycleOwner) { newWidth ->
+            if (newWidth != binding.editTextWidthRing.text.toString()){
+                binding.editTextWidthRing.setText(newWidth)
+            }
+        }
+
+        viewModel.thickness.observe(viewLifecycleOwner) { newThickness ->
+            if (newThickness != binding.editTextThicknessRing.text.toString()){
+                binding.editTextThicknessRing.setText(newThickness)
+            }
+        }
+
         binding.buttonResult.setOnClickListener {
             if (binding.editTextWidthRing.text.isBlank()) {
                 binding.editTextWidthRing.error = ("empty")
@@ -33,42 +73,34 @@ class CalculateRingFragment : Fragment() {
             } else if (binding.editTextThicknessRing.text.isBlank()) {
                 binding.editTextThicknessRing.error = ("empty")
             } else {
-                resultview()
+                displayResul()
             }
         }
     }
 
-    private fun resultview(): Boolean {
-        val size = binding.editTextSizeRing.text.toString().toDouble()
-        val width = binding.editTextWidthRing.text.toString().toDouble()
-        val thickness = binding.editTextThicknessRing.text.toString().toDouble()
-        val areaSize = ((size * size)/4)*3.14
-        val insideDiameter = (thickness * 2) + size
-        val areaTotal = ((insideDiameter * insideDiameter)/4)*3.14
-        val areaRingSide = areaTotal - areaSize
-        val volumeRing = areaRingSide * width
-        val gold750 = 0.0154 * volumeRing
-        val gold750Floor = floor(gold750 * 100.0) /100.0
-        val gold585 = 0.0138 * volumeRing
-        val gold585Floor = floor(gold585 * 100.0) /100.0
-        val silver = 0.01036 * volumeRing
-        val silverFloor = floor(silver * 100.0) /100.0
-
+    private fun displayResul() {
 
         if (binding.radioButtonGold750.isChecked) {
-            gold750Floor.toString().also { binding.textViewResult.text = it }
+            binding.textViewResult.text = viewModel.calculateWeightOfRing(
+                viewModel.calculateVolumeOfRing(),
+                DensityGoldEnum.GOLD_750
+            ).toString()
+        } else if (binding.radioButtonGold585.isChecked) {
+            binding.textViewResult.text = viewModel.calculateWeightOfRing(
+                viewModel.calculateVolumeOfRing(),
+                DensityGoldEnum.GOLD_585
+            ).toString()
+        } else if (binding.radioButtonSilver.isChecked) {
+            binding.textViewResult.text = viewModel.calculateWeightOfRing(
+                viewModel.calculateVolumeOfRing(),
+                DensityGoldEnum.SILVER
+            ).toString()
         }
-        else if (binding.radioButtonGold585.isChecked) {
-            gold585Floor.toString().also { binding.textViewResult.text = it }
-        }
-        else if (binding.radioButtonSilver.isChecked) {
-            silverFloor.toString().also { binding.textViewResult.text = it }
-        }
-        return true
     }
 
     companion object {
 
+        const val TAG = "OLOLO"
         const val RING = "CalculateRingFragment"
 
         @JvmStatic

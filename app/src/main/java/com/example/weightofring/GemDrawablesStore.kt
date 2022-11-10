@@ -41,10 +41,10 @@ object GemDrawablesStore {
         NameGemEnum.AMETHYST to hashMapOf(
             CutForm.ROUND to R.drawable.roundamethyst,
             CutForm.PRINCESS to R.drawable.princamet,
-              CutForm.OVAL to R.drawable.ovalamet,
-               CutForm.EMERALD to R.drawable.emeramet,
-               CutForm.BAGUETTE to R.drawable.bagamet,
-               CutForm.MARQUIS to R.drawable.marcamet
+            CutForm.OVAL to R.drawable.ovalamet,
+            CutForm.EMERALD to R.drawable.emeramet,
+            CutForm.BAGUETTE to R.drawable.bagamet,
+            CutForm.MARQUIS to R.drawable.marcamet
          ) ,
         NameGemEnum.AQUAMARINE to hashMapOf(
             CutForm.ROUND to R.drawable.roundaqua,
