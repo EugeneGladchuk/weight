@@ -1,15 +1,13 @@
 package com.example.weightofring
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
-import java.util.Observer
 
 class CalculateRingFragment : Fragment() {
 
@@ -28,79 +26,70 @@ class CalculateRingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        /* ############# События с View ############ */
         binding.editTextSizeRing.doOnTextChanged { text, start, before, count ->
-//            Log.d(TAG, "editTextSizeRing: text = $text")
-//            Log.d(TAG, "editTextSizeRing: start = $start")
-//            Log.d(TAG, "editTextSizeRing: before = $before")
-//            Log.d(TAG, "editTextSizeRing: count = $count")
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
             viewModel.updateSize(newValue)
         }
-
         binding.editTextWidthRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
             viewModel.updateWidth(newValue)
         }
-
         binding.editTextThicknessRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
             viewModel.updateThickness(newValue)
         }
-
-        viewModel.size.observe(viewLifecycleOwner) { newSize ->
-            if (newSize != binding.editTextSizeRing.text.toString()){
-                binding.editTextSizeRing.setText(newSize)
+        binding.radioGroup.setOnCheckedChangeListener { radioGroup, i ->
+            when {
+                binding.radioButtonGold750.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_750)
+                binding.radioButtonGold585.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_585)
+                binding.radioButtonSilver.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.SILVER)
             }
         }
+        binding.buttonResult.setOnClickListener {
+            viewModel.calculate()
+        }
 
+        /* ############## Подписки на ViewModel ############## */
+        viewModel.size.observe(viewLifecycleOwner) {
+            if (it.text != binding.editTextSizeRing.text.toString()) {
+                binding.editTextSizeRing.setText(it.text)
+            }
+            if (it.error) {
+                binding.editTextSizeRing.error = "error"
+            } else {
+                binding.editTextSizeRing.error = null
+            }
+        }
         viewModel.width.observe(viewLifecycleOwner) { newWidth ->
-            if (newWidth != binding.editTextWidthRing.text.toString()){
+            if (newWidth != binding.editTextWidthRing.text.toString()) {
                 binding.editTextWidthRing.setText(newWidth)
             }
         }
-
         viewModel.thickness.observe(viewLifecycleOwner) { newThickness ->
-            if (newThickness != binding.editTextThicknessRing.text.toString()){
+            if (newThickness != binding.editTextThicknessRing.text.toString()) {
                 binding.editTextThicknessRing.setText(newThickness)
             }
         }
-
-        binding.buttonResult.setOnClickListener {
-            if (binding.editTextWidthRing.text.isBlank()) {
-                binding.editTextWidthRing.error = ("empty")
-            } else if (binding.editTextSizeRing.text.isBlank()) {
-                binding.editTextSizeRing.error = ("empty")
-            } else if (binding.editTextThicknessRing.text.isBlank()) {
-                binding.editTextThicknessRing.error = ("empty")
-            } else {
-                displayResul()
+        viewModel.result.observe(viewLifecycleOwner) { newResult ->
+            if (newResult != binding.textViewResult.text) {
+                binding.textViewResult.text = newResult
             }
         }
-    }
-
-    private fun displayResul() {
-
-        if (binding.radioButtonGold750.isChecked) {
-            binding.textViewResult.text = viewModel.calculateWeightOfRing(
-                viewModel.calculateVolumeOfRing(),
-                DensityGoldEnum.GOLD_750
-            ).toString()
-        } else if (binding.radioButtonGold585.isChecked) {
-            binding.textViewResult.text = viewModel.calculateWeightOfRing(
-                viewModel.calculateVolumeOfRing(),
-                DensityGoldEnum.GOLD_585
-            ).toString()
-        } else if (binding.radioButtonSilver.isChecked) {
-            binding.textViewResult.text = viewModel.calculateWeightOfRing(
-                viewModel.calculateVolumeOfRing(),
-                DensityGoldEnum.SILVER
-            ).toString()
+        viewModel.typeMetal.observe(viewLifecycleOwner) { newTypeMetal ->
+            val checkboxView = when (newTypeMetal) {
+                DensityGoldEnum.GOLD_750 -> binding.radioButtonGold750
+                DensityGoldEnum.GOLD_585 -> binding.radioButtonGold585
+                else -> binding.radioButtonSilver
+            }
+            if (!checkboxView.isChecked) {
+                checkboxView.isChecked = true
+            }
         }
     }
 
     companion object {
 
-        const val TAG = "OLOLO"
         const val RING = "CalculateRingFragment"
 
         @JvmStatic
