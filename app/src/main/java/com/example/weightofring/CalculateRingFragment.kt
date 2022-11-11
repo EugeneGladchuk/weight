@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
 
 class CalculateRingFragment : Fragment() {
 
-    private val viewModel: CalculateRingViewModel by viewModels()
+//    private val viewModel: CalculateRingViewModel/* by viewModels()*/
+    lateinit var viewModel: CalculateRingViewModel/* by viewModels()*/
 
     private lateinit var binding: FragmentCalculateRingBinding
 
@@ -26,19 +28,24 @@ class CalculateRingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        viewModel = ViewModelProvider(requireActivity())[CalculateRingViewModel::class.java]
+
         /* ############# События с View ############ */
-        binding.editTextSizeRing.doOnTextChanged { text, start, before, count ->
-            val newValue = if (text.isNullOrBlank()) " " else text.toString()
-            viewModel.updateSize(newValue)
-        }
         binding.editTextWidthRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
             viewModel.updateWidth(newValue)
         }
+
+        binding.editTextSizeRing.doOnTextChanged { text, start, before, count ->
+            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            viewModel.updateSize(newValue)
+        }
+
         binding.editTextThicknessRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
             viewModel.updateThickness(newValue)
         }
+
         binding.radioGroup.setOnCheckedChangeListener { radioGroup, i ->
             when {
                 binding.radioButtonGold750.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_750)
@@ -46,11 +53,23 @@ class CalculateRingFragment : Fragment() {
                 binding.radioButtonSilver.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.SILVER)
             }
         }
+
         binding.buttonResult.setOnClickListener {
             viewModel.calculate()
         }
 
         /* ############## Подписки на ViewModel ############## */
+        viewModel.width.observe(viewLifecycleOwner) {
+            if (it.text != binding.editTextWidthRing.text.toString()) {
+                binding.editTextWidthRing.setText(it.text)
+            }
+            if (it.error) {
+                binding.editTextWidthRing.error = "error"
+            } else {
+                binding.editTextWidthRing.error = null
+            }
+        }
+
         viewModel.size.observe(viewLifecycleOwner) {
             if (it.text != binding.editTextSizeRing.text.toString()) {
                 binding.editTextSizeRing.setText(it.text)
@@ -61,21 +80,24 @@ class CalculateRingFragment : Fragment() {
                 binding.editTextSizeRing.error = null
             }
         }
-        viewModel.width.observe(viewLifecycleOwner) { newWidth ->
-            if (newWidth != binding.editTextWidthRing.text.toString()) {
-                binding.editTextWidthRing.setText(newWidth)
+
+        viewModel.thickness.observe(viewLifecycleOwner) {
+            if (it.text != binding.editTextThicknessRing.text.toString()) {
+                binding.editTextThicknessRing.setText(it.text)
+            }
+            if (it.error) {
+                binding.editTextThicknessRing.error = "error"
+            } else {
+                binding.editTextThicknessRing.error = null
             }
         }
-        viewModel.thickness.observe(viewLifecycleOwner) { newThickness ->
-            if (newThickness != binding.editTextThicknessRing.text.toString()) {
-                binding.editTextThicknessRing.setText(newThickness)
-            }
-        }
+
         viewModel.result.observe(viewLifecycleOwner) { newResult ->
             if (newResult != binding.textViewResult.text) {
                 binding.textViewResult.text = newResult
             }
         }
+
         viewModel.typeMetal.observe(viewLifecycleOwner) { newTypeMetal ->
             val checkboxView = when (newTypeMetal) {
                 DensityGoldEnum.GOLD_750 -> binding.radioButtonGold750

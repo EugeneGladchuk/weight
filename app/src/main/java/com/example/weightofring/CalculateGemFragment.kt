@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.weightofring.databinding.FragmentCalculateGemBinding
 import kotlin.math.floor
 
 
 class CalculateGemFragment : Fragment() {
+
+    private val viewModel: CalculateRingViewModel by viewModels()
 
     lateinit var binding: FragmentCalculateGemBinding
 
@@ -80,6 +83,8 @@ class CalculateGemFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
 
         setupListParameters()
         setupListParameters2()

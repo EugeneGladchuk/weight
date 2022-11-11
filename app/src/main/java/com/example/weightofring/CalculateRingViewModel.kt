@@ -12,14 +12,14 @@ class CalculateRingViewModel : ViewModel() {
         val error: Boolean
     )
 
+    private val _width = MutableLiveData<EditTextState>(EditTextState(text = "", error = false))
+    val width: LiveData<EditTextState> get() = _width
+
     private val _size = MutableLiveData<EditTextState>(EditTextState(text = "", error = false))
     val size: LiveData<EditTextState> get() = _size
 
-    private val _width = MutableLiveData<String>()
-    val width: LiveData<String> get() = _width
-
-    private val _thickness = MutableLiveData<String>()
-    val thickness: LiveData<String> get() = _thickness
+    private val _thickness = MutableLiveData<EditTextState>(EditTextState(text = "", error = false))
+    val thickness: LiveData<EditTextState> get() = _thickness
 
     private val _typeMetal = MutableLiveData<DensityGoldEnum>(DensityGoldEnum.GOLD_585)
     val typeMetal: LiveData<DensityGoldEnum> get() = _typeMetal
@@ -29,6 +29,14 @@ class CalculateRingViewModel : ViewModel() {
 
     private fun calculateWeightOfRing() {
 
+        var widthDouble = 0.0
+        try {
+            val width = _width.value ?: throw Throwable("INVALID_SIZE")
+            widthDouble = width.text.toDouble()
+        } catch (ex: Exception) {
+            _width.value = _width.value?.copy(error = true)
+        }
+
         var sizeDouble = 0.0
         try {
             val size = _size.value ?: throw Throwable("INVALID_SIZE")
@@ -37,12 +45,15 @@ class CalculateRingViewModel : ViewModel() {
             _size.value = _size.value?.copy(error = true)
         }
 
-        val width = _width.value ?: throw Throwable("INVALID_SIZE")
-        val widthDouble = width.toDouble()
-        val thickness = _thickness.value ?: throw Throwable("INVALID_SIZE")
-        val thicknessDouble = thickness.toDouble()
+        var thicknessDouble = 0.0
+        try {
+            val thickness = _thickness.value ?: throw Throwable("INVALID_SIZE")
+            thicknessDouble = thickness.text.toDouble()
+        } catch (ex: Exception) {
+            _thickness.value = _thickness.value?.copy(error = true)
+        }
 
-        if (_size.value?.error == true /* TODO || width.. || thicness */) {
+        if ( _width.value?.error == true || _size.value?.error == true || _thickness.value?.error == true ) {
             return
         }
 
@@ -60,21 +71,21 @@ class CalculateRingViewModel : ViewModel() {
         _result.value = floor(resultFloor * 100.0).div(100.0).toString()
     }
 
-    fun updateSize(size: String) {
-        if (_size.value?.text != size) {
-            _size.value = _size.value?.copy(text = size)
+    fun updateWidth(width: String) {
+        if (_width.value?.text != width) {
+            _width.value = _width.value?.copy(text = width, error = false)
         }
     }
 
-    fun updateWidth(width: String) {
-        if (_width.value != width) {
-            _width.value = width
+    fun updateSize(size: String) {
+        if (_size.value?.text != size) {
+            _size.value = _size.value?.copy(text = size, error = false)
         }
     }
 
     fun updateThickness(thickness: String) {
-        if (_thickness.value != thickness) {
-            _thickness.value = thickness
+        if (_thickness.value?.text != thickness) {
+            _thickness.value = _thickness.value?.copy(text = thickness, error = false)
         }
     }
 
