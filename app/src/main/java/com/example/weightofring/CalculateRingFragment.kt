@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
 
@@ -33,17 +32,17 @@ class CalculateRingFragment : Fragment() {
         /* ############# События с View ############ */
         binding.editTextWidthRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
-            viewModel.updateWidth(newValue)
+            viewModel.widthTextChanged(newValue)
         }
 
         binding.editTextSizeRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
-            viewModel.updateSize(newValue)
+            viewModel.sizeTextChanged(newValue)
         }
 
         binding.editTextThicknessRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) " " else text.toString()
-            viewModel.updateThickness(newValue)
+            viewModel.thicknessTextChanged(newValue)
         }
 
         binding.radioGroup.setOnCheckedChangeListener { radioGroup, i ->

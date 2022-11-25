@@ -1,5 +1,6 @@
 package com.example.weightofring
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -71,19 +72,31 @@ class CalculateRingViewModel : ViewModel() {
         _result.value = floor(resultFloor * 100.0).div(100.0).toString()
     }
 
-    fun updateWidth(width: String) {
+    fun widthTextChanged(width: String) {
+        updateWidth(width)
+    }
+
+    private fun updateWidth(width: String) {
         if (_width.value?.text != width) {
             _width.value = _width.value?.copy(text = width, error = false)
         }
     }
 
-    fun updateSize(size: String) {
+    fun sizeTextChanged(size: String) {
+        updateSize(size)
+    }
+
+    private fun updateSize(size: String) {
         if (_size.value?.text != size) {
             _size.value = _size.value?.copy(text = size, error = false)
         }
     }
 
-    fun updateThickness(thickness: String) {
+    fun thicknessTextChanged(thickness: String) {
+        updateThickness(thickness)
+    }
+
+    private fun updateThickness(thickness: String) {
         if (_thickness.value?.text != thickness) {
             _thickness.value = _thickness.value?.copy(text = thickness, error = false)
         }

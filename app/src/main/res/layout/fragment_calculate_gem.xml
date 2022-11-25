@@ -60,13 +60,13 @@
             android:layout_height="wrap_content"
             android:text="@string/DensityTextView"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/densitySpinner"
-            app:layout_constraintEnd_toStartOf="@+id/densitySpinner"
+            app:layout_constraintBottom_toBottomOf="@+id/gemSpinner"
+            app:layout_constraintEnd_toStartOf="@+id/gemSpinner"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/densitySpinner" />
+            app:layout_constraintTop_toTopOf="@+id/gemSpinner" />
 
         <Spinner
-            android:id="@+id/densitySpinner"
+            android:id="@+id/gemSpinner"
             android:layout_width="180dp"
             android:saveEnabled="false"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             android:textSize="19sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/buttonResultGem"
-            app:layout_constraintTop_toBottomOf="@+id/densitySpinner" />
+            app:layout_constraintTop_toBottomOf="@+id/gemSpinner" />
 
         <TextView
             android:id="@+id/widthTextView"

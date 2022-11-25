@@ -1,12 +1,16 @@
 package com.example.weightofring
 
-import com.example.weightofring.CalculateGemFragment.CutType.CutForm
-import com.example.weightofring.CalculateGemFragment.GemParameters.NameGemEnum
+
+import androidx.annotation.DrawableRes
+import com.example.weightofring.domain.model.CutType
+import com.example.weightofring.domain.model.CutType.*
+import com.example.weightofring.domain.model.GemParameters
+import com.example.weightofring.domain.model.GemParameters.*
 
 object GemDrawablesStore {
 
-    private val gemMap = hashMapOf<NameGemEnum, Map<CutForm, Int>>(
-        NameGemEnum.DIAMOND to hashMapOf(
+    private val gemMap = hashMapOf<GemParameters.NameGemEnum, Map<CutType.CutForm, Int>>(
+        GemParameters.NameGemEnum.DIAMOND to hashMapOf(
             CutForm.ROUND to R.drawable.rounddiamond,
             CutForm.PRINCESS to R.drawable.princdiamond,
             CutForm.OVAL to R.drawable.ovaldiamond,
@@ -55,10 +59,9 @@ object GemDrawablesStore {
             CutForm.MARQUIS to R.drawable.marcaqua
         )
     )
-
-    fun getGemDrawable(cutForm: CutForm, gemType: NameGemEnum): Int? {
+    @DrawableRes
+    fun getGemDrawable(gemType: NameGemEnum, cutForm: CutForm): Int? {
         val gemMapValue = gemMap[gemType] ?: return null
         return gemMapValue[cutForm]
     }
-
 }
