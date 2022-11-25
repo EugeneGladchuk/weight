@@ -1,6 +1,5 @@
 package com.example.weightofring
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,25 +7,25 @@ import kotlin.math.floor
 
 class CalculateRingViewModel : ViewModel() {
 
-    data class EditTextState(
+    data class RingEditTextState(
         val text: String,
         val error: Boolean
     )
 
-    private val _width = MutableLiveData<EditTextState>(EditTextState(text = "", error = false))
-    val width: LiveData<EditTextState> get() = _width
+    private val _width = MutableLiveData(RingEditTextState(text = "", error = false))
+    val width: LiveData<RingEditTextState> get() = _width
 
-    private val _size = MutableLiveData<EditTextState>(EditTextState(text = "", error = false))
-    val size: LiveData<EditTextState> get() = _size
+    private val _size = MutableLiveData(RingEditTextState(text = "", error = false))
+    val size: LiveData<RingEditTextState> get() = _size
 
-    private val _thickness = MutableLiveData<EditTextState>(EditTextState(text = "", error = false))
-    val thickness: LiveData<EditTextState> get() = _thickness
+    private val _thickness = MutableLiveData(RingEditTextState(text = "", error = false))
+    val thickness: LiveData<RingEditTextState> get() = _thickness
 
-    private val _typeMetal = MutableLiveData<DensityGoldEnum>(DensityGoldEnum.GOLD_585)
+    private val _typeMetal = MutableLiveData(DensityGoldEnum.GOLD_585)
     val typeMetal: LiveData<DensityGoldEnum> get() = _typeMetal
 
-    private val _result = MutableLiveData<String>()
-    val result: LiveData<String> get() = _result
+    private val _result = MutableLiveData<Double>()
+    val result: LiveData<Double> get() = _result
 
     private fun calculateWeightOfRing() {
 
@@ -54,10 +53,6 @@ class CalculateRingViewModel : ViewModel() {
             _thickness.value = _thickness.value?.copy(error = true)
         }
 
-        if ( _width.value?.error == true || _size.value?.error == true || _thickness.value?.error == true ) {
-            return
-        }
-
         val areaSize = ((sizeDouble * sizeDouble) / 4) * 3.14
         val insideDiameter = (thicknessDouble * 2.0) + sizeDouble
         val areaTotal = ((insideDiameter * insideDiameter) / 4) * 3.14
@@ -69,7 +64,13 @@ class CalculateRingViewModel : ViewModel() {
 
         val resultFloor = (volumeRing * typeMetal.dens)
 
-        _result.value = floor(resultFloor * 100.0).div(100.0).toString()
+        val resWeight = floor(resultFloor * 100.0).div(100.0)
+
+        if ( _width.value?.error == true || _size.value?.error == true || _thickness.value?.error == true ) {
+            _result.value = 0.0
+        } else {
+            _result.value = resWeight
+        }
     }
 
     fun widthTextChanged(width: String) {

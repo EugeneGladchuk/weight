@@ -19,5 +19,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.frameLayout, StartFragment.newInstance())
                 .commit()
         }
+
     }
 }

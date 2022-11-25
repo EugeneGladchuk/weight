@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.weightofring.databinding.FragmentCalculateGemBinding
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters
 
-
 class CalculateGemFragment : Fragment() {
 
-    private val viewModel: CalculateGemViewModel by viewModels()
+    lateinit var viewModel: CalculateGemViewModel
 
     lateinit var binding: FragmentCalculateGemBinding
 
@@ -48,6 +48,27 @@ class CalculateGemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        viewModel = ViewModelProvider(requireActivity())[CalculateGemViewModel::class.java]
+
+        binding.lengthEditText.doOnTextChanged { text, start, before, count ->
+            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            viewModel.lengthTextChanged(newValue)
+        }
+
+        binding.widthEditText.doOnTextChanged { text, start, before, count ->
+            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            viewModel.widthTextChanged(newValue)
+        }
+
+        binding.depthEditText.doOnTextChanged { text, start, before, count ->
+            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            viewModel.depthTextChanged(newValue)
+        }
+
+        viewModel.gemImage.observe(viewLifecycleOwner) {
+            binding.imageView.setImageResource(it)
+        }
+
         viewModel.allGemParameters.observe(viewLifecycleOwner) {
             setupListGemParameters(it)
         }
@@ -67,27 +88,54 @@ class CalculateGemFragment : Fragment() {
             }
         }
 
-        viewModel.gemImage.observe(viewLifecycleOwner) {
-            binding.imageView.setImageResource(it)
+        viewModel.lengthGem.observe(viewLifecycleOwner) {
+            if (it.text != binding.lengthEditText.text.toString()) {
+                binding.lengthEditText.setText(it.text)
+            }
+            if (it.error) {
+                binding.lengthEditText.error = "error"
+            } else {
+                binding.lengthEditText.error = null
+            }
+        }
+
+        viewModel.widthGem.observe(viewLifecycleOwner) {
+            if (it.text != binding.widthEditText.text.toString()) {
+                binding.widthEditText.setText(it.text)
+            }
+            if (it.error) {
+                binding.widthEditText.error = "error"
+            } else {
+                binding.widthEditText.error = null
+            }
+        }
+
+        viewModel.depthGem.observe(viewLifecycleOwner) {
+            if (it.text != binding.depthEditText.text.toString()) {
+                binding.depthEditText.setText(it.text)
+            }
+            if (it.error) {
+                binding.depthEditText.error = "error"
+            } else {
+                binding.depthEditText.error = null
+            }
+        }
+
+        viewModel.resultCarat.observe(viewLifecycleOwner) {
+            if (it.toString() != binding.textViewResult.text) {
+                binding.textViewResult.text = it.toString()
+            }
+        }
+
+        viewModel.resultGram.observe(viewLifecycleOwner) {
+            if (it.toString() != binding.resultGemGrammTV.text) {
+                binding.resultGemGrammTV.text = it.toString()
+            }
         }
 
         binding.buttonResultGem.setOnClickListener {
-//            gemWeightResult()
+            viewModel.calculate()
         }
-
-        //viewModel.listOfGemParameters -> вызываем setupListParameters(list)
-
-//        binding.buttonResultGem.setOnClickListener {
-//            if (binding.lengthEditText.text.isBlank()) {
-//                binding.lengthEditText.error = ("empty")
-//            } else if (binding.widthEditText.text.isBlank()) {
-//                binding.widthEditText.error = ("empty")
-//            } else if (binding.depthEditText.text.isBlank()) {
-//                binding.depthEditText.error = ("empty")
-//            } else {
-//                gemWeightResult()
-//            }
-//        }
     }
 
     private fun setupListGemParameters(list: List<GemParameters>) {
@@ -111,36 +159,6 @@ class CalculateGemFragment : Fragment() {
         binding.cutSpinner.adapter = adapterCut
         binding.cutSpinner.onItemSelectedListener = cutTypeListener
     }
-
-//    private fun gemWeightResult() {
-//
-//        val lengthGem = binding.lengthEditText.text.toString().toDouble()
-//        val widthGem = binding.widthEditText.text.toString().toDouble()
-//        val depthGem = binding.depthEditText.text.toString().toDouble()
-//        val densityGemCalculate = viewModel.allGemParameters.densityGem.toDouble()
-//        val typeCutCalculate = selectedCutParameters.calculationCoefficient.toDouble()
-//
-//        val sizeGem: Double
-//        val sizePrincess = (lengthGem + widthGem) / 2
-//
-//        if (selectedCutParameters.form == CutType.CutForm.OVAL) {
-//            sizeGem = sizePrincess * sizePrincess * depthGem
-//        } else {
-//            sizeGem = lengthGem * widthGem * depthGem
-//        }
-//
-//        val gemDensity = sizeGem * 2 /*densityGemCalculate*/
-//        val gemWeightResult = gemDensity * typeCutCalculate
-//        val gemWeightResultFloor = floor(gemWeightResult * 1000.0) / 1000.0
-//
-//        val gemWeightGramms = gemWeightResult * 0.2
-//        val gemWeightGrammsFloor = floor(gemWeightGramms * 1000.0) / 1000.0
-//
-//        gemWeightResultFloor.toString().also { binding.textViewResult.text = it }
-//        gemWeightGrammsFloor.toString().also { binding.resultGemGrammTV.text = it }
-//
-//    }
-
 
     companion object {
 

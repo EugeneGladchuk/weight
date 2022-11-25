@@ -11,7 +11,6 @@ import com.example.weightofring.databinding.FragmentCalculateRingBinding
 
 class CalculateRingFragment : Fragment() {
 
-//    private val viewModel: CalculateRingViewModel/* by viewModels()*/
     lateinit var viewModel: CalculateRingViewModel/* by viewModels()*/
 
     private lateinit var binding: FragmentCalculateRingBinding
@@ -91,9 +90,9 @@ class CalculateRingFragment : Fragment() {
             }
         }
 
-        viewModel.result.observe(viewLifecycleOwner) { newResult ->
-            if (newResult != binding.textViewResult.text) {
-                binding.textViewResult.text = newResult
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (it.toString() != binding.textViewResult.text) {
+                binding.textViewResult.text = it.toString()
             }
         }
 

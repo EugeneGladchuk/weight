@@ -54,6 +54,4 @@ dependencies {
 
     debugImplementation 'androidx.fragment:fragment:1.5.3'
 
-
-
 }
