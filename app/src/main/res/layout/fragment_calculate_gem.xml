@@ -15,8 +15,7 @@
             android:id="@+id/textViewParametersGem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginTop="12dp"
+            android:layout_margin="7dp"
             android:text="@string/textViewParametersGem"
             android:textSize="27sp"
             android:textStyle="bold"
@@ -40,8 +39,7 @@
             android:text="@string/CutTextView"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/cutSpinner"
-            app:layout_constraintEnd_toStartOf="@+id/cutSpinner"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/lengthTextView"
             app:layout_constraintTop_toTopOf="@+id/cutSpinner" />
 
         <Spinner
@@ -49,7 +47,6 @@
             android:layout_width="180dp"
             android:saveEnabled="false"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/buttonResultGem"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -61,8 +58,7 @@
             android:text="@string/DensityTextView"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/gemSpinner"
-            app:layout_constraintEnd_toStartOf="@+id/gemSpinner"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/lengthTextView"
             app:layout_constraintTop_toTopOf="@+id/gemSpinner" />
 
         <Spinner
@@ -105,8 +101,7 @@
             android:text="@string/WidthTextView"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/widthEditText"
-            app:layout_constraintEnd_toStartOf="@+id/widthEditText"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/lengthTextView"
             app:layout_constraintTop_toTopOf="@+id/widthEditText" />
 
 
@@ -129,8 +124,7 @@
             android:text="@string/DepthTextView"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/depthEditText"
-            app:layout_constraintEnd_toStartOf="@+id/depthEditText"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/lengthTextView"
             app:layout_constraintTop_toTopOf="@+id/depthEditText" />
 
         <EditText
@@ -150,11 +144,9 @@
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:layout_margin="8dp"
-            android:background="#202020"
             android:text="@string/ButtonResult"
-            android:textColor="#B3B3B3"
-            android:textSize="40sp"
-            app:iconTint="#C57777"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/depthEditText" />
@@ -177,7 +169,7 @@
             android:id="@+id/textViewResult"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:layout_margin="9dp"
+            android:layout_margin="2dp"
             android:text="0.0"
             android:textAlignment="center"
             android:textColor="@android:color/holo_green_dark"

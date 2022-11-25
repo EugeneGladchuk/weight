@@ -141,7 +141,7 @@ class CalculateGemFragment : Fragment() {
     private fun setupListGemParameters(list: List<GemParameters>) {
         adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_list_item_1,
+            android.R.layout.simple_list_item_activated_1,
             android.R.id.text1,
             list
         )
@@ -152,7 +152,7 @@ class CalculateGemFragment : Fragment() {
     private fun setupListCutParameters(list: List<CutType>) {
         adapterCut = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_list_item_1,
+            android.R.layout.simple_list_item_activated_1,
             android.R.id.text1,
             list
         )
