@@ -11,6 +11,8 @@
     <string name="radioButtonGold585">GOLD 585</string>
     <string name="radioButtonSilver">SILVER</string>
     <string name="ButtonResult">RESULT</string>
+    <string name="ButtonList">result list</string>
+    <string name="gram">gram</string>
     <string name="CutTextView">CUT TYPE</string>
     <string name="DensityTextView">GEM DENSITY</string>
     <string name="LengthTextView">GEM LENGTH</string>

@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.weightofring.RingListResultFragment.Companion.RING_LIST_RESULT
+import com.example.weightofring.database.AppDatabase
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
 
 class CalculateRingFragment : Fragment() {
 
-    lateinit var viewModel: CalculateRingViewModel/* by viewModels()*/
+    lateinit var viewModel: CalculateRingViewModel
 
     private lateinit var binding: FragmentCalculateRingBinding
 
@@ -27,6 +29,9 @@ class CalculateRingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel = ViewModelProvider(requireActivity())[CalculateRingViewModel::class.java]
+
+        // убираем в VM
+//        val db = AppDatabase.getDatabase(requireContext())
 
         /* ############# События с View ############ */
         binding.editTextWidthRing.doOnTextChanged { text, start, before, count ->
@@ -54,7 +59,24 @@ class CalculateRingFragment : Fragment() {
 
         binding.buttonResult.setOnClickListener {
             viewModel.calculate()
+            // Это выносим во вьюмодель, так как это логика
+//            Thread {
+//            db.ringResultDao().insertRingResult(viewModel.addToResultList())
+//            }.start()
         }
+
+        binding.buttonList.setOnClickListener {
+            activity?.run {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, RingListResultFragment.newInstance())
+                    .addToBackStack(RING_LIST_RESULT)
+                    .commit()
+            }
+        }
+
+        /*viewModel.myDataList.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
+        }*/
 
         /* ############## Подписки на ViewModel ############## */
         viewModel.width.observe(viewLifecycleOwner) {
@@ -112,7 +134,6 @@ class CalculateRingFragment : Fragment() {
 
         const val RING = "CalculateRingFragment"
 
-        @JvmStatic
         fun newInstance() = CalculateRingFragment()
     }
 }

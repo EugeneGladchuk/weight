@@ -1,16 +1,24 @@
 package com.example.weightofring
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.weightofring.database.AppDatabase
+import com.example.weightofring.database.ringresult.RingResult
+import kotlinx.coroutines.launch
 import kotlin.math.floor
 
-class CalculateRingViewModel : ViewModel() {
+class CalculateRingViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val db = AppDatabase.getDatabase(application)
 
     data class RingEditTextState(
         val text: String,
         val error: Boolean
     )
+
 
     private val _width = MutableLiveData(RingEditTextState(text = "", error = false))
     val width: LiveData<RingEditTextState> get() = _width
@@ -26,6 +34,7 @@ class CalculateRingViewModel : ViewModel() {
 
     private val _result = MutableLiveData<Double>()
     val result: LiveData<Double> get() = _result
+
 
     private fun calculateWeightOfRing() {
 
@@ -64,12 +73,28 @@ class CalculateRingViewModel : ViewModel() {
 
         val resultFloor = (volumeRing * typeMetal.dens)
 
+        val typeMetalForResultList = typeMetal.typeName
+
         val resWeight = floor(resultFloor * 100.0).div(100.0)
 
         if ( _width.value?.error == true || _size.value?.error == true || _thickness.value?.error == true ) {
             _result.value = 0.0
         } else {
             _result.value = resWeight
+            saveToDatabase(widthDouble, sizeDouble, thicknessDouble, typeMetalForResultList, resWeight)
+        }
+    }
+
+    private fun saveToDatabase(widthDouble: Double, sizeDouble: Double, thicknessDouble: Double, typeMetal: String, result: Double) {
+        viewModelScope.launch {
+            val ringResult = RingResult(
+                null,
+                widthDouble.toString(),
+                sizeDouble.toString(),
+                thicknessDouble.toString(),
+                typeMetal,
+                result.toString())
+            db.ringResultDao().insertRingResult(ringResult)
         }
     }
 
@@ -112,4 +137,5 @@ class CalculateRingViewModel : ViewModel() {
     fun calculate() {
         calculateWeightOfRing()
     }
+
 }
