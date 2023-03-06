@@ -4,131 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp"
+    android:padding="2dp"
     android:background="#EFEFEF"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:layout_marginTop="4dp">
 
-    <TextView
-        android:id="@+id/ringWidthResult"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/editTextWidth"
-        android:textColor="@color/teal_700"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ringWidthResult2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:layout_marginStart="7dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ringWidthResult"
-        app:layout_constraintStart_toEndOf="@+id/ringWidthResult"
-        app:layout_constraintTop_toTopOf="@+id/ringWidthResult"
-        tools:text="5.5" />
-
-    <TextView
-        android:id="@+id/ringSizeResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/editTextSize"
-        android:textColor="@color/teal_700"
-        android:layout_marginStart="7dp"
-        android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/ringWidthResult2"
-        app:layout_constraintTop_toTopOf="@+id/ringWidthResult" />
-
-    <TextView
-        android:id="@+id/ringSizeResult2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:layout_marginStart="7dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ringSizeResult"
-        app:layout_constraintStart_toEndOf="@+id/ringSizeResult"
-        app:layout_constraintTop_toTopOf="@+id/ringSizeResult"
-        tools:text="5.5" />
-
-    <TextView
-        android:id="@+id/ringThicknessResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/editTextThickness"
-        android:textColor="@color/teal_700"
-        android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/ringSizeResult2"
-        app:layout_constraintTop_toTopOf="@+id/ringWidthResult" />
-
-    <TextView
-        android:id="@+id/ringThicknessResult2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:layout_marginStart="7dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ringThicknessResult"
-        app:layout_constraintStart_toEndOf="@+id/ringThicknessResult"
-        app:layout_constraintTop_toTopOf="@+id/ringThicknessResult"
-        tools:text="5.5" />
-
-    <TextView
-        android:id="@+id/typeMetal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:textColor="#EF3737"
-        android:textSize="17sp"
-        app:layout_constraintStart_toEndOf="@+id/ringThicknessResult2"
-        app:layout_constraintTop_toTopOf="@+id/ringWidthResult"
-        tools:text="GOLD 585" />
-
-    <TextView
-        android:id="@+id/resultInList2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#3C46FF"
-        android:textSize="22sp"
-        android:layout_marginStart="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/resultInList"
-        app:layout_constraintTop_toBottomOf="@+id/ringWidthResult"
-        tools:text="15.5" />
-
-    <TextView
-        android:id="@+id/resultInList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ButtonResult"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/resultInList2"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/resultInList2" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/gram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/gram"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/resultInList2"
-        app:layout_constraintStart_toEndOf="@+id/resultInList2"
-        app:layout_constraintTop_toTopOf="@+id/resultInList2" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1">
+
+            <TextView
+                android:id="@+id/ringWidthResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                tools:text="7.35" />
+
+            <TextView
+                android:id="@+id/ringSizeResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                tools:text="18.9" />
+
+            <TextView
+                android:id="@+id/ringThicknessResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                tools:text="1.73" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8">
+
+            <TextView
+                android:id="@+id/typeMetal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:textColor="#EF3737"
+                android:textSize="14sp"
+                tools:text="GOLD 585" />
+
+            <TextView
+                android:id="@+id/resultInList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:gravity="center"
+                android:textColor="#3C46FF"
+                android:textSize="18sp"
+                tools:text="15.5" />
+
+            <TextView
+                android:id="@+id/gram"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="start"
+                android:text="@string/gram"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
         android:src="@drawable/ic_baseline_delete_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

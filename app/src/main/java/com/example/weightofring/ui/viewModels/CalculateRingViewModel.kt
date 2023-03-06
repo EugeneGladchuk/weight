@@ -1,12 +1,13 @@
-package com.example.weightofring
+package com.example.weightofring.ui.viewModels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.weightofring.database.AppDatabase
-import com.example.weightofring.database.ringresult.RingResult
+import com.example.weightofring.domain.model.DensityGoldEnum
+import com.example.weightofring.data.database.AppDatabase
+import com.example.weightofring.data.database.ringresult.RingResult
 import kotlinx.coroutines.launch
 import kotlin.math.floor
 
@@ -19,6 +20,7 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
         val error: Boolean
     )
 
+    val myDataList: LiveData<List<RingResult>> = db.ringResultDao().getAll()
 
     private val _width = MutableLiveData(RingEditTextState(text = "", error = false))
     val width: LiveData<RingEditTextState> get() = _width
@@ -29,7 +31,7 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
     private val _thickness = MutableLiveData(RingEditTextState(text = "", error = false))
     val thickness: LiveData<RingEditTextState> get() = _thickness
 
-    private val _typeMetal = MutableLiveData(DensityGoldEnum.GOLD_585)
+    private val _typeMetal = MutableLiveData(DensityGoldEnum.GOLD_750)
     val typeMetal: LiveData<DensityGoldEnum> get() = _typeMetal
 
     private val _result = MutableLiveData<Double>()
@@ -95,6 +97,12 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
                 typeMetal,
                 result.toString())
             db.ringResultDao().insertRingResult(ringResult)
+        }
+    }
+
+    fun deleteButtonClick(item: RingResult) {
+        viewModelScope.launch {
+            db.ringResultDao().deleteRingResult(item)
         }
     }
 

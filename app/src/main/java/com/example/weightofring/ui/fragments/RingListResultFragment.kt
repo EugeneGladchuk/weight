@@ -1,4 +1,4 @@
-package com.example.weightofring
+package com.example.weightofring.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weightofring.RingResultAdapter
 import com.example.weightofring.databinding.FragmentRingListResultBinding
+import com.example.weightofring.ui.viewModels.CalculateRingViewModel
 
 class RingListResultFragment : Fragment() {
 
@@ -22,7 +24,7 @@ class RingListResultFragment : Fragment() {
         }
     )
 
-    lateinit var viewModel: RingListResultViewModel
+    private lateinit var viewModel: CalculateRingViewModel
 
 
     override fun onCreateView(
@@ -30,7 +32,7 @@ class RingListResultFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = ViewModelProvider(requireActivity())[RingListResultViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[CalculateRingViewModel::class.java]
 
         // Inflate the layout for this fragment
         binding = FragmentRingListResultBinding.inflate(inflater, container, false)

@@ -1,5 +1,6 @@
-package com.example.weightofring
+package com.example.weightofring.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,11 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.weightofring.RingListResultFragment.Companion.RING_LIST_RESULT
-import com.example.weightofring.database.AppDatabase
+import com.example.weightofring.ui.viewModels.CalculateRingViewModel
+import com.example.weightofring.domain.model.DensityGoldEnum
+import com.example.weightofring.R
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
+import com.example.weightofring.ui.fragments.RingListResultFragment.Companion.RING_LIST_RESULT
 
 class CalculateRingFragment : Fragment() {
 
@@ -26,6 +29,7 @@ class CalculateRingFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel = ViewModelProvider(requireActivity())[CalculateRingViewModel::class.java]
@@ -51,6 +55,8 @@ class CalculateRingFragment : Fragment() {
 
         binding.radioGroup.setOnCheckedChangeListener { radioGroup, i ->
             when {
+                binding.radioButtonPlatinum.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.PLATINUM)
+                binding.radioButtonGold999.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_999)
                 binding.radioButtonGold750.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_750)
                 binding.radioButtonGold585.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_585)
                 binding.radioButtonSilver.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.SILVER)
@@ -119,7 +125,13 @@ class CalculateRingFragment : Fragment() {
         }
 
         viewModel.typeMetal.observe(viewLifecycleOwner) { newTypeMetal ->
+
+            madeAllButtonAlpha()
+            madeSelectedButton(newTypeMetal)
+
             val checkboxView = when (newTypeMetal) {
+                DensityGoldEnum.PLATINUM -> binding.radioButtonPlatinum
+                DensityGoldEnum.GOLD_999 -> binding.radioButtonGold999
                 DensityGoldEnum.GOLD_750 -> binding.radioButtonGold750
                 DensityGoldEnum.GOLD_585 -> binding.radioButtonGold585
                 else -> binding.radioButtonSilver
@@ -129,6 +141,26 @@ class CalculateRingFragment : Fragment() {
             }
         }
     }
+
+    private fun madeAllButtonAlpha() {
+        binding.cardViewPlatinum.alpha = 0.35F
+        binding.cardViewGold999.alpha = 0.35F
+        binding.cardViewGold750.alpha = 0.35F
+        binding.cardViewGold585.alpha = 0.35F
+        binding.cardViewSilver.alpha = 0.35F
+
+    }
+
+    private fun madeSelectedButton(newTypeMetal: DensityGoldEnum) {
+        when (newTypeMetal) {
+            DensityGoldEnum.PLATINUM -> binding.cardViewPlatinum.alpha = 1F
+            DensityGoldEnum.GOLD_999 -> binding.cardViewGold999.alpha = 1F
+            DensityGoldEnum.GOLD_750 -> binding.cardViewGold750.alpha = 1F
+            DensityGoldEnum.GOLD_585 -> binding.cardViewGold585.alpha = 1F
+            else -> binding.cardViewSilver.alpha = 1F
+        }
+    }
+
 
     companion object {
 

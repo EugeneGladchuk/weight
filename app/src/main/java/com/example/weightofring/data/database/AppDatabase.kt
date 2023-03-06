@@ -1,11 +1,11 @@
-package com.example.weightofring.database
+package com.example.weightofring.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.weightofring.database.ringresult.RingResult
-import com.example.weightofring.database.ringresult.RingResultDao
+import com.example.weightofring.data.database.ringresult.RingResult
+import com.example.weightofring.data.database.ringresult.RingResultDao
 
 @Database(entities = arrayOf(RingResult::class), version = 1)
 

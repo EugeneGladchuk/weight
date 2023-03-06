@@ -1,4 +1,4 @@
-package com.example.weightofring
+package com.example.weightofring.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.weightofring.ui.viewModels.CalculateGemViewModel
 import com.example.weightofring.databinding.FragmentCalculateGemBinding
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters

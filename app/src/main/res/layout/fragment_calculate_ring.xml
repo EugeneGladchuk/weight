@@ -11,146 +11,432 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        tools:context=".CalculateRingFragment">
+        android:padding="5dp"
+        tools:context=".ui.fragments.CalculateRingFragment">
 
-        <TextView
-            android:id="@+id/textViewParameters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="7dp"
-            android:text="@string/textViewParameters"
-            android:textSize="27sp"
-            android:textStyle="bold"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:cardBackgroundColor="#D1D1D1"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/textViewParameters"
+                android:textColor="@color/active_button"
+                android:textSize="23sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
 
         <ImageView
             android:id="@+id/exampleImage"
-            android:layout_width="280dp"
-            android:layout_height="280dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/exampleimage"
+            android:src="@drawable/classic_ring"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewParameters" />
-
-        <TextView
-            android:id="@+id/textViewWidth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:text="@string/editTextWidth"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/editTextWidthRing"
-            app:layout_constraintStart_toStartOf="@+id/editTextWidthRing"
-            app:layout_constraintTop_toBottomOf="@id/exampleImage" />
-
-        <TextView
-            android:id="@+id/textViewSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:text="@string/editTextSize"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/editTextSizeRing"
-            app:layout_constraintStart_toStartOf="@+id/editTextSizeRing"
-            app:layout_constraintTop_toBottomOf="@id/exampleImage" />
-
-        <TextView
-            android:id="@+id/textViewThickness"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:text="@string/editTextThickness"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/editTextThicknessRing"
-            app:layout_constraintStart_toStartOf="@+id/editTextThicknessRing"
-            app:layout_constraintTop_toBottomOf="@id/exampleImage" />
-
-        <EditText
-            android:id="@+id/editTextWidthRing"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:saveEnabled="false"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextSizeRing"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewWidth" />
-
-        <EditText
-            android:id="@+id/editTextSizeRing"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:saveEnabled="false"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSize" />
-
-        <EditText
-            android:id="@+id/editTextThicknessRing"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:saveEnabled="false"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editTextSizeRing"
-            app:layout_constraintTop_toBottomOf="@+id/textViewThickness" />
+            app:layout_constraintTop_toBottomOf="@+id/cardViewTitle" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:checkedButton="@id/radioButtonGold585"
+            android:id="@+id/radioGroupTypeRing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:checkedButton="@id/radioButtonGold750"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextWidthRing">
+            app:layout_constraintTop_toBottomOf="@+id/exampleImage">
+
+            <RadioButton
+                android:id="@+id/radioButtonClassic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:saveEnabled="false"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEuropean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:saveEnabled="false"
+                android:textSize="13sp" />
+
+        </RadioGroup>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTypeRing"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            app:cardBackgroundColor="#D1D1D1"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/radioGroupTypeRing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/radioGroupTypeRing">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="2dp"
+                    app:cardBackgroundColor="@color/active_button"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/classicRing"
+                        android:textSize="17sp"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="2dp"
+                    app:cardBackgroundColor="@color/active_button"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/europeanRing"
+                        android:textSize="17sp"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:checkedButton="@id/radioButtonGold750"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupTypeRing">
+
+            <RadioButton
+                android:id="@+id/radioButtonPlatinum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:saveEnabled="false"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonGold999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:saveEnabled="false"
+                android:textSize="13sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonGold750"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_weight="1"
                 android:saveEnabled="false"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="@string/radioButtonGold750"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="151dp"
-                tools:layout_editor_absoluteY="385dp" />
+                android:textSize="13sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonGold585"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_weight="1"
                 android:saveEnabled="false"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="@string/radioButtonGold585"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="151dp"
-                tools:layout_editor_absoluteY="385dp" />
+                android:textSize="13sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonSilver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_weight="1"
                 android:saveEnabled="false"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="@string/radioButtonSilver"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="151dp"
-                tools:layout_editor_absoluteY="385dp" />
+                android:textSize="13sp" />
         </RadioGroup>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTypeMetal"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            app:cardBackgroundColor="#D1D1D1"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/radioGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/radioGroup">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewPlatinum"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/active_button"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/radioButtonPlatinum"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewGold999"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/active_button"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/radioButtonGold999"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewGold750"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/active_button"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/radioButtonGold750"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewGold585"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/active_button"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/radioButtonGold585"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewSilver"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/active_button"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/radioButtonSilver"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewWidth"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            app:cardBackgroundColor="#D1D1D1"
+            android:layout_marginTop="11dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewTypeMetal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/textViewWidth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/active_button"
+                    android:text="@string/editTextWidth"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/editTextWidthRing"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.6"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:saveEnabled="false"
+                    android:text="12.3"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewSize"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="6dp"
+            app:cardBackgroundColor="#D1D1D1"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewWidth">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/textViewSize"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/active_button"
+                    android:gravity="center"
+                    android:text="@string/editTextSize"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/editTextSizeRing"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.6"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:saveEnabled="false"
+                    android:text="12.3"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewThickness"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="6dp"
+            app:cardBackgroundColor="#D1D1D1"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewSize">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/textViewThickness"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/active_button"
+                    android:gravity="center"
+                    android:text="@string/editTextThickness"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/editTextThicknessRing"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.6"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:saveEnabled="false"
+                    android:text="12.3"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <Button
             android:id="@+id/buttonResult"
@@ -158,10 +444,10 @@
             android:layout_height="60dp"
             android:layout_marginStart="55dp"
             android:text="@string/ButtonResult"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/cardViewThickness" />
 
         <Button
             android:id="@+id/buttonList"

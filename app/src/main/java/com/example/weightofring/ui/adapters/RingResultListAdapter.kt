@@ -3,7 +3,7 @@ package com.example.weightofring
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weightofring.database.ringresult.RingResult
+import com.example.weightofring.data.database.ringresult.RingResult
 import com.example.weightofring.databinding.ItemRingResultBinding
 
 
@@ -46,10 +46,10 @@ class RingResultAdapter(val clickListener: (item: RingResult) -> Unit) :
         var binding: ItemRingResultBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ringResult: RingResult) {
-            binding.ringWidthResult2.text = ringResult.width
-            binding.ringSizeResult2.text = ringResult.size
-            binding.ringThicknessResult2.text = ringResult.thickness
-            binding.resultInList2.text = ringResult.result
+            binding.ringWidthResult.text = ringResult.width
+            binding.ringSizeResult.text = ringResult.size
+            binding.ringThicknessResult.text = ringResult.thickness
+            binding.resultInList.text = ringResult.result
             binding.typeMetal.text = ringResult.type
         }
     }

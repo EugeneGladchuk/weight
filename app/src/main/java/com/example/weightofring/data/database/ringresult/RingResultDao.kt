@@ -1,4 +1,4 @@
-package com.example.weightofring.database.ringresult
+package com.example.weightofring.data.database.ringresult
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

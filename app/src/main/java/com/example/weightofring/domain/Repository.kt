@@ -1,6 +1,6 @@
 package com.example.weightofring.domain
 
-import com.example.weightofring.database.AppDatabase
+import com.example.weightofring.data.database.AppDatabase
 
 class Repository(val networkDatabase: AppDatabase) {
 

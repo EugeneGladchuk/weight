@@ -1,7 +1,8 @@
-package com.example.weightofring
+package com.example.weightofring.domain
 
 
 import androidx.annotation.DrawableRes
+import com.example.weightofring.R
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.CutType.*
 import com.example.weightofring.domain.model.GemParameters

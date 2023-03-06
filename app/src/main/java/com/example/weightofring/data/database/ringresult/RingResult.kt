@@ -1,4 +1,4 @@
-package com.example.weightofring.database.ringresult
+package com.example.weightofring.data.database.ringresult
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo

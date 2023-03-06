@@ -1,8 +1,10 @@
-package com.example.weightofring
+package com.example.weightofring.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.weightofring.R
 import com.example.weightofring.databinding.ActivityMainBinding
+import com.example.weightofring.ui.fragments.StartFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if(savedInstanceState == null){
-            supportFragmentManager.beginTransaction()
+            supportFragmentManager
+                .beginTransaction()
                 .replace(R.id.frameLayout, StartFragment.newInstance())
                 .commit()
         }

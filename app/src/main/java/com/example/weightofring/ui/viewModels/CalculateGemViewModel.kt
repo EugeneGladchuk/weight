@@ -1,10 +1,10 @@
-package com.example.weightofring
+package com.example.weightofring.ui.viewModels
 
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weightofring.GemDrawablesStore.getGemDrawable
+import com.example.weightofring.domain.GemDrawablesStore.getGemDrawable
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters
 import java.lang.Math.floor

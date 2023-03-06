@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".StartFragment">
+    tools:context=".ui.fragments.StartFragment">
 
     <ImageButton
         android:id="@+id/imageButtonRing"
-        android:layout_width="240dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="220dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         android:src="@drawable/ring_button_image"
@@ -23,39 +23,66 @@
         android:id="@+id/titleButtonRing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="6dp"
         android:text="@string/buttonRing"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonRing" />
 
     <ImageButton
         android:id="@+id/imageButtonGem"
-        android:layout_width="240dp"
-        android:layout_height="200dp"
+        android:layout_width="220dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="6dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/gem_button_image"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonRing" />
+        app:layout_constraintTop_toBottomOf="@+id/titleButtonRing" />
 
     <TextView
         android:id="@+id/titleButtonGem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="6dp"
         android:text="@string/buttonGem"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonGem" />
+
+    <ImageButton
+        android:id="@+id/imageButtonGoldPrice"
+        android:layout_width="220dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="6dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/goldprices"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleButtonGem" />
+
+    <TextView
+        android:id="@+id/titleButtonGoldPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonGoldPrice"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonGoldPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
