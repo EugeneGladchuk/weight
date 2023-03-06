@@ -10,11 +10,11 @@ class CutType(
     }
 
     enum class CutForm {
-        ROUND ,
-        PRINCESS ,
-        OVAL ,
-        EMERALD ,
-        BAGUETTE ,
+        ROUND,
+        PRINCESS,
+        OVAL,
+        EMERALD,
+        BAGUETTE,
         MARQUIS
     }
 }
