@@ -52,17 +52,17 @@ class CalculateGemFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[CalculateGemViewModel::class.java]
 
         binding.lengthEditText.doOnTextChanged { text, start, before, count ->
-            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            val newValue = if (text.isNullOrBlank()) "" else text.toString()
             viewModel.lengthTextChanged(newValue)
         }
 
         binding.widthEditText.doOnTextChanged { text, start, before, count ->
-            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            val newValue = if (text.isNullOrBlank()) "" else text.toString()
             viewModel.widthTextChanged(newValue)
         }
 
         binding.depthEditText.doOnTextChanged { text, start, before, count ->
-            val newValue = if (text.isNullOrBlank()) " " else text.toString()
+            val newValue = if (text.isNullOrBlank()) "" else text.toString()
             viewModel.depthTextChanged(newValue)
         }
 

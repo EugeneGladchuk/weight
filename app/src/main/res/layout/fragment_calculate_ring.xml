@@ -456,6 +456,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="5dp"
             app:cardBackgroundColor="@color/card_view"
             app:cardCornerRadius="7dp"
             app:cardElevation="3dp"
@@ -612,8 +613,6 @@
                             app:layout_constraintTop_toTopOf="@+id/textViewLengthBase" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
                 </androidx.cardview.widget.CardView>
 
