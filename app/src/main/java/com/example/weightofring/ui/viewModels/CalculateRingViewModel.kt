@@ -72,6 +72,8 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
             _thickness.value = _thickness.value?.copy(error = true)
         }
 
+        val typeRing = _typeRing.value.toString()
+
         val ringCutArea = calculateCutArea(widthDouble, thicknessDouble)
 
         val middleDiameter = sizeDouble + thicknessDouble
@@ -96,7 +98,28 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
         } else {
             _result.value = resultWeightRing
             _lengthRingBase.value = resultLengthBase
-            saveToDatabase(widthDouble, sizeDouble, thicknessDouble, typeMetalForResultList, resultWeightRing)
+            saveToDatabase(typeRing, widthDouble, sizeDouble, thicknessDouble, typeMetalForResultList, resultWeightRing, resultLengthBase )
+        }
+    }
+
+    private fun saveToDatabase(typeRing: String,
+                               widthDouble: Double,
+                               sizeDouble: Double,
+                               thicknessDouble: Double,
+                               typeMetal: String,
+                               result: Double,
+                               resultLengthBase: Double) {
+        viewModelScope.launch {
+            val ringResult = RingResult(
+                null,
+                typeRing,
+                widthDouble.toString(),
+                sizeDouble.toString(),
+                thicknessDouble.toString(),
+                typeMetal,
+                result.toString(),
+                resultLengthBase.toString())
+            db.ringResultDao().insertRingResult(ringResult)
         }
     }
 
@@ -107,19 +130,6 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
             classicCutArea
         } else {
             europeanCutArea
-        }
-    }
-
-    private fun saveToDatabase(widthDouble: Double, sizeDouble: Double, thicknessDouble: Double, typeMetal: String, result: Double) {
-        viewModelScope.launch {
-            val ringResult = RingResult(
-                null,
-                widthDouble.toString(),
-                sizeDouble.toString(),
-                thicknessDouble.toString(),
-                typeMetal,
-                result.toString())
-            db.ringResultDao().insertRingResult(ringResult)
         }
     }
 

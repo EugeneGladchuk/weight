@@ -162,7 +162,7 @@ class CalculateGemViewModel : ViewModel() {
             val gemWeightGramms = gemWeightResult * 0.2
             val resGramm = floor(gemWeightGramms * 1000.0) / 1000.0
 
-            if (_lengthGem.value?.error == true || _widthGem.value?.error == true || _depthGem.value?.error == true ) {
+            if (_lengthGem.value?.error == true || _widthGem.value?.error == true || _depthGem.value?.error == true) {
                 _resultCarat.value = 0.0
                 _resultGram.value = 0.0
             } else {

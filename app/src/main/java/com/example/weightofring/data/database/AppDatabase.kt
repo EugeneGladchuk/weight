@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.weightofring.data.database.gemresult.GemResult
+import com.example.weightofring.data.database.gemresult.GemResultDao
 import com.example.weightofring.data.database.ringresult.RingResult
 import com.example.weightofring.data.database.ringresult.RingResultDao
 
-@Database(entities = arrayOf(RingResult::class), version = 1)
+@Database(entities = [RingResult::class, GemResult::class], version = 1)
 
 
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun ringResultDao(): RingResultDao
+    abstract fun gemResultDao(): GemResultDao
 
     companion object {
         @Volatile

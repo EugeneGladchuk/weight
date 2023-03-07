@@ -201,8 +201,9 @@ class CalculateRingFragment : Fragment() {
 
     private fun checkEditText() {
         if (binding.editTextWidthRing.text.toString().isNotBlank()
-            ||binding.editTextSizeRing.text.toString().isNotBlank()
-            ||binding.editTextThicknessRing.text.toString().isNotBlank()) {
+            || binding.editTextSizeRing.text.toString().isNotBlank()
+            || binding.editTextThicknessRing.text.toString().isNotBlank()
+        ) {
             binding.buttonResult.isEnabled = false
             binding.cardViewButtonResult.alpha = 0.35F
         }
