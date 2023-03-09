@@ -6,6 +6,7 @@
     <string name="editTextSize">SIZE</string>
     <string name="editTextWidth">WIDTH</string>
     <string name="editTextThickness">THICKNESS</string>
+    <string name="textViewTitleApp">JEWELRY CALCULATOR</string>
     <string name="textViewParameters">ENTER RING PARAMETERS</string>
     <string name="textViewParametersGem">ENTER GEM PARAMETERS</string>
     <string name="radioButtonPlatinum">PLATINUM</string>
