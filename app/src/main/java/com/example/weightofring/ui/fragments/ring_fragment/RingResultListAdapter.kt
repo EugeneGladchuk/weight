@@ -46,11 +46,15 @@ class RingResultAdapter(val clickListener: (item: RingResult) -> Unit) :
         var binding: ItemRingResultBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ringResult: RingResult) {
-            binding.ringWidthResult.text = ringResult.width
-            binding.ringSizeResult.text = ringResult.size
-            binding.ringThicknessResult.text = ringResult.thickness
-            binding.resultInList.text = ringResult.result
-            binding.typeMetal.text = ringResult.type
+            with (binding) {
+                ringWidthResult.text = ringResult.width
+                ringSizeResult.text = ringResult.size
+                typeRing.text = ringResult.typeRing
+                ringThicknessResult.text = ringResult.thickness
+                resultInList.text = ringResult.result
+                typeMetal.text = ringResult.type
+                textViewLengthBase.text = ringResult.lengthBase
+            }
         }
     }
 }

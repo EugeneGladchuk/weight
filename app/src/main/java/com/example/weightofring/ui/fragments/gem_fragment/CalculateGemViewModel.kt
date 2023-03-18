@@ -1,17 +1,23 @@
 package com.example.weightofring.ui.fragments.gem_fragment
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.domain.GemDrawablesStore.getGemDrawable
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters
 import com.example.weightofring.domain.model.Lists
+import com.example.weightofring.domain.use_case.CalculateGemWeightUseCase
 import java.lang.Math.floor
 
-class CalculateGemViewModel(
+class CalculateGemViewModel(application: Application) : AndroidViewModel(application) {
 
-) : ViewModel() {
+    private val db = AppDatabase.getDatabase(application)
+
+    private val calculateGemWeightUseCase = CalculateGemWeightUseCase()
 
     private val lists = Lists()
 
@@ -50,7 +56,7 @@ class CalculateGemViewModel(
     private val _resultGram = MutableLiveData<Double>(0.0)
     val resultGram: LiveData<Double> get() = _resultGram
 
-    private fun gemWeightResult() {
+    private fun checkAllValues() {
 
         var lengthGemDouble = 0.0
         try {
@@ -75,38 +81,28 @@ class CalculateGemViewModel(
             _depthGem.value = _depthGem.value?.copy(error = true)
         }
 
-        val gemPosition = _gemSpinnerPosition.value
-        val cutPosition = _cutSpinnerPosition.value
-        val listGem = _allGemParameters.value
-        val listCut = _allCutParameters.value
+        val gemPosition = _gemSpinnerPosition.value!!
+        val cutPosition = _cutSpinnerPosition.value!!
+        val listGem = _allGemParameters.value!!
+        val listCut = _allCutParameters.value!!
 
-        if (gemPosition != null && cutPosition != null && listGem != null && listCut != null) {
-            val densityGemCalculate = listGem[gemPosition].densityGem.toDouble()
-            val typeCutCalculate = listCut[cutPosition].calculationCoefficient.toDouble()
+        val result = calculateGemWeightUseCase.calculateGem(
+            lengthGemDouble,
+            widthGemDouble,
+            depthGemDouble,
+            gemPosition,
+            cutPosition,
+            listGem,
+            listCut
+        )
 
-            val sizeGem: Double
-            val sizePrincess = (lengthGemDouble + widthGemDouble) / 2
+        if (_lengthGem.value?.error == true || _widthGem.value?.error == true || _depthGem.value?.error == true) {
+            _resultCarat.value = 0.0
+            _resultGram.value = 0.0
 
-            if (listCut[cutPosition].form == CutType.CutForm.OVAL) {
-                sizeGem = sizePrincess * sizePrincess * depthGemDouble
-            } else {
-                sizeGem = lengthGemDouble * widthGemDouble * depthGemDouble
-            }
-
-            val gemDensity = sizeGem * densityGemCalculate
-            val gemWeightResult = gemDensity * typeCutCalculate
-            val resCarat = floor(gemWeightResult * 1000.0) / 1000.0
-
-            val gemWeightGrams = gemWeightResult * 0.2
-            val resGram = floor(gemWeightGrams * 1000.0) / 1000.0
-
-            if (_lengthGem.value?.error == true || _widthGem.value?.error == true || _depthGem.value?.error == true) {
-                _resultCarat.value = 0.0
-                _resultGram.value = 0.0
-            } else {
-                _resultCarat.value = resCarat
-                _resultGram.value = resGram
-            }
+        } else {
+            _resultCarat.value = floor(result * 1000.0) / 1000.0
+            _resultGram.value = floor((result * 0.2) * 1000.0) / 1000.0
         }
     }
 
@@ -179,8 +175,8 @@ class CalculateGemViewModel(
         }
     }
 
-    fun calculate() {
-        gemWeightResult()
+    fun onButtonResultClicked() {
+        checkAllValues()
     }
 }
 

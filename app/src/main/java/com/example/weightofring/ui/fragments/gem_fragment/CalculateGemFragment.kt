@@ -134,7 +134,7 @@ class CalculateGemFragment : Fragment() {
         }
 
         binding.buttonResultGem.setOnClickListener {
-            viewModel.calculate()
+            viewModel.onButtonResultClicked()
         }
     }
 
