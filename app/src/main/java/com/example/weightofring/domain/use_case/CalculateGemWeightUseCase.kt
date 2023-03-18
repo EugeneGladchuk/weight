@@ -2,7 +2,6 @@ package com.example.weightofring.domain.use_case
 
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters
-import java.lang.Math.floor
 
 class CalculateGemWeightUseCase {
 

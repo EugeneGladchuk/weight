@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.domain.GemDrawablesStore.getGemDrawable
 import com.example.weightofring.domain.model.CutType
