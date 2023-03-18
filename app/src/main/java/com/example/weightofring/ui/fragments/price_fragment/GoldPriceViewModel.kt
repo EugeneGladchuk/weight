@@ -1,4 +1,4 @@
-package com.example.weightofring.ui.viewModels
+package com.example.weightofring.ui.fragments.price_fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class GoldPriceViewModel: ViewModel() {
 
-    val repository = PriceApi.retrofitService
+    private val repository = PriceApi.retrofitService
 
     private val _goldPrice = MutableLiveData<GoldPrice>()
     val goldPrice: LiveData<GoldPrice> = _goldPrice

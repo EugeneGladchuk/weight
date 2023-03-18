@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weightofring.R
 import com.example.weightofring.databinding.ActivityMainBinding
-import com.example.weightofring.ui.fragments.StartFragment
+import com.example.weightofring.ui.fragments.start_fragment.StartFragment
 
 
 class MainActivity : AppCompatActivity() {

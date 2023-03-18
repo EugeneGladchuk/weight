@@ -1,4 +1,4 @@
-package com.example.weightofring.ui.viewModels
+package com.example.weightofring.ui.fragments.ring_fragment
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -9,13 +9,15 @@ import com.example.weightofring.domain.model.DensityGoldEnum
 import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.data.database.ringresult.RingResult
 import com.example.weightofring.domain.model.TypeRing
+import com.example.weightofring.domain.use_case.CalculateRingWeightUseCase
 import kotlinx.coroutines.launch
-import kotlin.math.PI
 import kotlin.math.floor
 
 class CalculateRingViewModel(application: Application) : AndroidViewModel(application) {
 
     private val db = AppDatabase.getDatabase(application)
+
+    private val calculateRingWeightUseCase = CalculateRingWeightUseCase()
 
     data class RingEditTextState(
         val text: String,
@@ -46,7 +48,7 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
     val result: LiveData<Double> get() = _result
 
 
-    private fun calculateWeightOfRing() {
+    private fun checkAllValues() {
 
         var widthDouble = 0.0
         try {
@@ -55,7 +57,6 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
         } catch (ex: Exception) {
             _width.value = _width.value?.copy(error = true)
         }
-
         var sizeDouble = 0.0
         try {
             val size = _size.value ?: throw Throwable("INVALID_SIZE")
@@ -63,7 +64,6 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
         } catch (ex: Exception) {
             _size.value = _size.value?.copy(error = true)
         }
-
         var thicknessDouble = 0.0
         try {
             val thickness = _thickness.value ?: throw Throwable("INVALID_SIZE")
@@ -71,34 +71,18 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
         } catch (ex: Exception) {
             _thickness.value = _thickness.value?.copy(error = true)
         }
-
         val typeRing = _typeRing.value.toString()
-
-        val ringCutArea = calculateCutArea(widthDouble, thicknessDouble)
-
-        val middleDiameter = sizeDouble + thicknessDouble
-
-        val lengthBase = middleDiameter * PI
-
-        val ringVolume = lengthBase * ringCutArea
-
         val typeMetal = _typeMetal.value ?: throw Throwable("INVALID_SIZE")
-
-        val resultFloor = (ringVolume * typeMetal.dens)
-
-        val typeMetalForResultList = typeMetal.typeName
-
-        val resultWeightRing = floor(resultFloor * 100.0).div(100.0)
-
-        val resultLengthBase = floor(lengthBase * 100.0).div(100.0)
+        val lengthBase = floor(calculateRingWeightUseCase.calculateLengthBase(sizeDouble, thicknessDouble) * 100.0).div(100.0)
+        val result = calculateRingWeightUseCase.calculateRing(typeRing, widthDouble, sizeDouble, thicknessDouble, typeMetal)
 
         if ( _width.value?.error == true || _size.value?.error == true || _thickness.value?.error == true ) {
             _result.value = 0.0
             _lengthRingBase.value = 0.0
         } else {
-            _result.value = resultWeightRing
-            _lengthRingBase.value = resultLengthBase
-            saveToDatabase(typeRing, widthDouble, sizeDouble, thicknessDouble, typeMetalForResultList, resultWeightRing, resultLengthBase )
+            _result.value = result
+            _lengthRingBase.value = lengthBase
+            saveToDatabase(typeRing, widthDouble, sizeDouble, thicknessDouble, typeMetal.toString(), result, lengthBase)
         }
     }
 
@@ -109,6 +93,7 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
                                typeMetal: String,
                                result: Double,
                                resultLengthBase: Double) {
+
         viewModelScope.launch {
             val ringResult = RingResult(
                 null,
@@ -120,16 +105,6 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
                 result.toString(),
                 resultLengthBase.toString())
             db.ringResultDao().insertRingResult(ringResult)
-        }
-    }
-
-    private fun calculateCutArea(width: Double, thickness: Double): Double {
-        val europeanCutArea = width * thickness
-        val classicCutArea = ((width/2) * thickness * 3.14)/2
-        return if (_typeRing.value == TypeRing.CLASSIC) {
-            classicCutArea
-        } else {
-            europeanCutArea
         }
     }
 
@@ -181,8 +156,7 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    fun calculate() {
-        calculateWeightOfRing()
+    fun onResultButtonClicked() {
+        checkAllValues()
     }
-
 }

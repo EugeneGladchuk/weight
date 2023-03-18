@@ -24,7 +24,7 @@ class RingResultAdapter(val clickListener: (item: RingResult) -> Unit) :
         val viewHolder = RingResultViewHolder(binding)
 
         binding.imageButton.setOnClickListener {
-            var position = viewHolder.adapterPosition
+            val position = viewHolder.adapterPosition
             if (position != RecyclerView.NO_POSITION){
                 ringResultList.getOrNull(position)?.let{
                     clickListener.invoke(it)

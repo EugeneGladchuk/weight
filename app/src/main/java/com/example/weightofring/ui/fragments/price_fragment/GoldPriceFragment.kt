@@ -1,4 +1,4 @@
-package com.example.weightofring.ui.fragments
+package com.example.weightofring.ui.fragments.price_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.weightofring.ui.viewModels.GoldPriceViewModel
 import com.example.weightofring.databinding.FragmentGoldPriceBinding
 
 
@@ -35,7 +34,7 @@ class GoldPriceFragment : Fragment() {
         }
 
         viewModel.goldPrice.observe(viewLifecycleOwner) {
-            binding.textViewPriceResult.text = it.rates.RUB.toString()
+            binding.textViewPriceResult.text = it.rates.XAU.toString()
         }
     }
 

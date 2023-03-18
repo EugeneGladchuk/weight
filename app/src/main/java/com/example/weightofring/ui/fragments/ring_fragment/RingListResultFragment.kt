@@ -1,4 +1,4 @@
-package com.example.weightofring.ui.fragments
+package com.example.weightofring.ui.fragments.ring_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weightofring.RingResultAdapter
 import com.example.weightofring.databinding.FragmentRingListResultBinding
-import com.example.weightofring.ui.viewModels.CalculateRingViewModel
 
 class RingListResultFragment : Fragment() {
 
@@ -18,7 +17,7 @@ class RingListResultFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
-    val adapter = RingResultAdapter(
+    private val adapter = RingResultAdapter(
         clickListener = {
             viewModel.deleteButtonClick(it)
         }

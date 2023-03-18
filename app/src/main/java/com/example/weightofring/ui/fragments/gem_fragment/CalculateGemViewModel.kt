@@ -1,4 +1,4 @@
-package com.example.weightofring.ui.viewModels
+package com.example.weightofring.ui.fragments.gem_fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,9 +9,11 @@ import com.example.weightofring.domain.model.GemParameters
 import com.example.weightofring.domain.model.Lists
 import java.lang.Math.floor
 
-class CalculateGemViewModel : ViewModel() {
+class CalculateGemViewModel(
 
-    val lists = Lists()
+) : ViewModel() {
+
+    private val lists = Lists()
 
     data class CutEditTextState(
         val text: String,
@@ -95,15 +97,15 @@ class CalculateGemViewModel : ViewModel() {
             val gemWeightResult = gemDensity * typeCutCalculate
             val resCarat = floor(gemWeightResult * 1000.0) / 1000.0
 
-            val gemWeightGramms = gemWeightResult * 0.2
-            val resGramm = floor(gemWeightGramms * 1000.0) / 1000.0
+            val gemWeightGrams = gemWeightResult * 0.2
+            val resGram = floor(gemWeightGrams * 1000.0) / 1000.0
 
             if (_lengthGem.value?.error == true || _widthGem.value?.error == true || _depthGem.value?.error == true) {
                 _resultCarat.value = 0.0
                 _resultGram.value = 0.0
             } else {
                 _resultCarat.value = resCarat
-                _resultGram.value = resGramm
+                _resultGram.value = resGram
             }
         }
     }
@@ -117,7 +119,7 @@ class CalculateGemViewModel : ViewModel() {
         if (gemPosition != null && cutPosition != null && listGem != null && listCut != null) {
             val imgRes = getGemDrawable(
                 listGem[gemPosition].nameEnum,
-                listCut[cutPosition].form,
+                listCut[cutPosition].form
             )
             imgRes?.let {
                 _gemImage.value = it

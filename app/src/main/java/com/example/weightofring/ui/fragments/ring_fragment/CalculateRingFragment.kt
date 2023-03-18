@@ -1,4 +1,4 @@
-package com.example.weightofring.ui.fragments
+package com.example.weightofring.ui.fragments.ring_fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.weightofring.ui.viewModels.CalculateRingViewModel
 import com.example.weightofring.domain.model.DensityGoldEnum
 import com.example.weightofring.R
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
 import com.example.weightofring.domain.model.TypeRing
-import com.example.weightofring.ui.fragments.RingListResultFragment.Companion.RING_LIST_RESULT
+import com.example.weightofring.ui.fragments.ring_fragment.RingListResultFragment.Companion.RING_LIST_RESULT
 
 class CalculateRingFragment : Fragment() {
 
@@ -35,24 +34,23 @@ class CalculateRingFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[CalculateRingViewModel::class.java]
 
-        binding.radioGroupTypeRing.setOnCheckedChangeListener { radioGroup, i ->
-            restoreResultButton()
-            when {
-                binding.radioButtonClassic.isChecked -> viewModel.updateTypeRing(TypeRing.CLASSIC)
-                binding.radioButtonEuropean.isChecked -> viewModel.updateTypeRing(TypeRing.EUROPEAN)
-            }
-        }
 
-        binding.radioGroup.setOnCheckedChangeListener { radioGroup, i ->
-            restoreResultButton()
-            when {
-                binding.radioButtonPlatinum.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.PLATINUM)
-                binding.radioButtonGold999.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_999)
-                binding.radioButtonGold750.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_750)
-                binding.radioButtonGold585.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.GOLD_585)
-                binding.radioButtonSilver.isChecked -> viewModel.updateTypeMetal(DensityGoldEnum.SILVER)
-            }
-        }
+        binding.cardViewClassic.setOnClickListener { viewModel.updateTypeRing(TypeRing.CLASSIC)
+            restoreResultButton()}
+        binding.cardViewEuropean.setOnClickListener { viewModel.updateTypeRing(TypeRing.EUROPEAN)
+            restoreResultButton()}
+
+
+        binding.cardViewPlatinum.setOnClickListener { viewModel.updateTypeMetal(DensityGoldEnum.PLATINUM)
+            restoreResultButton()}
+        binding.cardViewGold999.setOnClickListener { viewModel.updateTypeMetal(DensityGoldEnum.GOLD_999)
+            restoreResultButton()}
+        binding.cardViewGold750.setOnClickListener { viewModel.updateTypeMetal(DensityGoldEnum.GOLD_750)
+            restoreResultButton()}
+        binding.cardViewGold585.setOnClickListener { viewModel.updateTypeMetal(DensityGoldEnum.GOLD_585)
+            restoreResultButton()}
+        binding.cardViewSilver.setOnClickListener { viewModel.updateTypeMetal(DensityGoldEnum.SILVER)
+            restoreResultButton()}
 
         binding.editTextWidthRing.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) "" else text.toString()
@@ -73,7 +71,7 @@ class CalculateRingFragment : Fragment() {
         }
 
         binding.buttonResult.setOnClickListener {
-            viewModel.calculate()
+            viewModel.onResultButtonClicked()
             checkEditText()
         }
 
@@ -87,34 +85,13 @@ class CalculateRingFragment : Fragment() {
         }
 
         viewModel.typeRing.observe(viewLifecycleOwner) { newTypeRing ->
-
             allButtonTypeRingIsAlpha()
             selectButtonTypeRing(newTypeRing)
-
-            val checkboxView = when (newTypeRing) {
-                TypeRing.CLASSIC -> binding.radioButtonClassic
-                TypeRing.EUROPEAN -> binding.radioButtonEuropean
-            }
-            if (!checkboxView.isChecked) {
-                checkboxView.isChecked = true
-            }
         }
 
         viewModel.typeMetal.observe(viewLifecycleOwner) { newTypeMetal ->
-
             allButtonTypeMetalIsAlpha()
             selectButtonTypeMetal(newTypeMetal)
-
-            val checkboxView = when (newTypeMetal) {
-                DensityGoldEnum.PLATINUM -> binding.radioButtonPlatinum
-                DensityGoldEnum.GOLD_999 -> binding.radioButtonGold999
-                DensityGoldEnum.GOLD_750 -> binding.radioButtonGold750
-                DensityGoldEnum.GOLD_585 -> binding.radioButtonGold585
-                else -> binding.radioButtonSilver
-            }
-            if (!checkboxView.isChecked) {
-                checkboxView.isChecked = true
-            }
         }
 
         viewModel.width.observe(viewLifecycleOwner) {
@@ -174,7 +151,6 @@ class CalculateRingFragment : Fragment() {
         binding.cardViewGold750.alpha = 0.35F
         binding.cardViewGold585.alpha = 0.35F
         binding.cardViewSilver.alpha = 0.35F
-
     }
 
     private fun selectButtonTypeRing(newTypeRing: TypeRing) {
