@@ -2,6 +2,7 @@ package com.example.weightofring.domain.use_case
 
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters
+import java.lang.Math.floor
 
 class CalculateGemWeightUseCase {
 
@@ -27,6 +28,7 @@ class CalculateGemWeightUseCase {
         }
 
         val gemDensity = sizeGem * densityGemCalculate
-        return gemDensity * typeCutCalculate
+        val result =  gemDensity * typeCutCalculate
+        return floor(result * 1000.0) / 1000.0
     }
 }

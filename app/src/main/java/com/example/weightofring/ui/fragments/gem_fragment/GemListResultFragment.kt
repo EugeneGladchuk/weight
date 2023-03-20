@@ -1,4 +1,4 @@
-package com.example.weightofring.ui.fragments.ring_fragment
+package com.example.weightofring.ui.fragments.gem_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,37 +8,37 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weightofring.RingResultListAdapter
-import com.example.weightofring.databinding.FragmentRingListResultBinding
+import com.example.weightofring.GemResultListAdapter
+import com.example.weightofring.databinding.FragmentGemListResultBinding
 
-class RingListResultFragment : Fragment() {
 
-    private lateinit var binding: FragmentRingListResultBinding
+class GemListResultFragment : Fragment() {
+
+    lateinit var binding: FragmentGemListResultBinding
 
     private lateinit var recyclerView: RecyclerView
 
-    private val adapter = RingResultListAdapter(
+    private val adapter = GemResultListAdapter(
         clickListener = {
             viewModel.deleteButtonClick(it)
         }
     )
 
-    private lateinit var viewModel: CalculateRingViewModel
-
+    lateinit var viewModel: CalculateGemViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        viewModel = ViewModelProvider(requireActivity())[CalculateRingViewModel::class.java]
-
         // Inflate the layout for this fragment
-        binding = FragmentRingListResultBinding.inflate(inflater, container, false)
+        binding = FragmentGemListResultBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity())[CalculateGemViewModel::class.java]
 
         recyclerView = binding.recyclerViewRingList
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -48,15 +48,12 @@ class RingListResultFragment : Fragment() {
         viewModel.myDataList.observe(viewLifecycleOwner) {
             adapter.updateData(it)
         }
-
     }
-
 
     companion object {
 
-        const val RING_LIST_RESULT = "RingListResultFragment"
+        const val GEM_LIST_RESULT = "GemListResultFragment"
 
-        fun newInstance() = RingListResultFragment()
-
+        fun newInstance() = GemListResultFragment()
     }
 }

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.weightofring.R
 import com.example.weightofring.databinding.FragmentCalculateGemBinding
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters
@@ -25,6 +26,7 @@ class CalculateGemFragment : Fragment() {
     private val gemTypeListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
             viewModel.gemSpinnerChanged(position)
+            restoreResultButton()
         }
         override fun onNothingSelected(position: AdapterView<*>?) {
         }
@@ -32,6 +34,7 @@ class CalculateGemFragment : Fragment() {
     private val cutTypeListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
             viewModel.cutSpinnerChanged(position)
+            restoreResultButton()
         }
         override fun onNothingSelected(position: AdapterView<*>?) {
         }
@@ -53,16 +56,19 @@ class CalculateGemFragment : Fragment() {
         binding.lengthEditText.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) "" else text.toString()
             viewModel.lengthTextChanged(newValue)
+            restoreResultButton()
         }
 
         binding.widthEditText.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) "" else text.toString()
             viewModel.widthTextChanged(newValue)
+            restoreResultButton()
         }
 
         binding.depthEditText.doOnTextChanged { text, start, before, count ->
             val newValue = if (text.isNullOrBlank()) "" else text.toString()
             viewModel.depthTextChanged(newValue)
+            restoreResultButton()
         }
 
         viewModel.gemImage.observe(viewLifecycleOwner) {
@@ -135,6 +141,26 @@ class CalculateGemFragment : Fragment() {
 
         binding.buttonResultGem.setOnClickListener {
             viewModel.onButtonResultClicked()
+            checkEditText()
+        }
+
+        binding.buttonList.setOnClickListener {
+            activity?.run{
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, GemListResultFragment.newInstance())
+                        .addToBackStack(GemListResultFragment.GEM_LIST_RESULT)
+                        .commit()
+                }
+        }
+    }
+
+    private fun checkEditText() {
+        if (binding.lengthEditText.text.toString().isNotBlank()
+            || binding.widthEditText.text.toString().isNotBlank()
+            || binding.depthEditText.text.toString().isNotBlank()
+        ) {
+            binding.buttonResultGem.isEnabled = false
+            binding.cardViewButtonResult.alpha = 0.35F
         }
     }
 
@@ -160,11 +186,15 @@ class CalculateGemFragment : Fragment() {
         binding.cutSpinner.onItemSelectedListener = cutTypeListener
     }
 
+    private fun restoreResultButton() {
+        binding.buttonResultGem.isEnabled = true
+        binding.cardViewButtonResult.alpha = 1F
+    }
+
     companion object {
 
         const val GEM = "CalculateGemFragment"
 
-        @JvmStatic
         fun newInstance() = CalculateGemFragment()
     }
 }

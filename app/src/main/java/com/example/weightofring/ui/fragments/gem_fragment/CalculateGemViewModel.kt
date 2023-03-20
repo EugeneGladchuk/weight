@@ -4,12 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.weightofring.data.database.AppDatabase
+import com.example.weightofring.data.database.gemresult.GemResult
 import com.example.weightofring.domain.GemDrawablesStore.getGemDrawable
 import com.example.weightofring.domain.model.CutType
 import com.example.weightofring.domain.model.GemParameters
 import com.example.weightofring.domain.model.Lists
 import com.example.weightofring.domain.use_case.CalculateGemWeightUseCase
+import kotlinx.coroutines.launch
 import java.lang.Math.floor
 
 class CalculateGemViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,6 +27,8 @@ class CalculateGemViewModel(application: Application) : AndroidViewModel(applica
         val text: String,
         val error: Boolean
     )
+
+    val myDataList: LiveData<List<GemResult>> = db.gemResultDao().getAll()
 
     private val _allGemParameters = MutableLiveData(lists.listGemParameters)
     val allGemParameters: LiveData<List<GemParameters>> get() = _allGemParameters
@@ -85,7 +90,7 @@ class CalculateGemViewModel(application: Application) : AndroidViewModel(applica
         val listGem = _allGemParameters.value!!
         val listCut = _allCutParameters.value!!
 
-        val result = calculateGemWeightUseCase.calculateGem(
+        val resultByCarat = calculateGemWeightUseCase.calculateGem(
             lengthGemDouble,
             widthGemDouble,
             depthGemDouble,
@@ -94,14 +99,51 @@ class CalculateGemViewModel(application: Application) : AndroidViewModel(applica
             listGem,
             listCut
         )
+        val resultByGram = floor((resultByCarat * 0.2) * 1000.0) / 1000.0
 
         if (_lengthGem.value?.error == true || _widthGem.value?.error == true || _depthGem.value?.error == true) {
             _resultCarat.value = 0.0
             _resultGram.value = 0.0
 
         } else {
-            _resultCarat.value = floor(result * 1000.0) / 1000.0
-            _resultGram.value = floor((result * 0.2) * 1000.0) / 1000.0
+            _resultCarat.value = resultByCarat
+            _resultGram.value = resultByGram
+            saveToDatabase(
+                listCut[cutPosition].name,
+                listGem[gemPosition].nameGem,
+                lengthGemDouble,
+                widthGemDouble,
+                depthGemDouble,
+                resultByCarat,
+                resultByGram
+            )
+        }
+    }
+
+    private fun saveToDatabase(name: String,
+                               nameGem: String,
+                               lengthGemDouble: Double,
+                               widthGemDouble: Double,
+                               depthGemDouble: Double,
+                               resultByCarat: Double,
+                               resultByGram: Double) {
+        viewModelScope.launch {
+            val gemResult = GemResult(
+                null,
+                name,
+                nameGem,
+                lengthGemDouble.toString(),
+                widthGemDouble.toString(),
+                depthGemDouble.toString(),
+                resultByCarat.toString(),
+                resultByGram.toString())
+            db.gemResultDao().insertGemResult(gemResult)
+        }
+    }
+
+    fun deleteButtonClick(item: GemResult) {
+        viewModelScope.launch {
+            db.gemResultDao().deleteGemResult(item)
         }
     }
 

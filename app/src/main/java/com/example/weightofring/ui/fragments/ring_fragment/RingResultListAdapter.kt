@@ -7,9 +7,8 @@ import com.example.weightofring.data.database.ringresult.RingResult
 import com.example.weightofring.databinding.ItemRingResultBinding
 
 
-
-class RingResultAdapter(val clickListener: (item: RingResult) -> Unit) :
-    RecyclerView.Adapter<RingResultAdapter.RingResultViewHolder>() {
+class RingResultListAdapter(val clickListener: (item: RingResult) -> Unit) :
+    RecyclerView.Adapter<RingResultListAdapter.RingResultViewHolder>() {
 
     private val ringResultList: MutableList<RingResult> = mutableListOf()
 
@@ -20,13 +19,14 @@ class RingResultAdapter(val clickListener: (item: RingResult) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RingResultViewHolder {
-        val binding = (ItemRingResultBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        val binding =
+            (ItemRingResultBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         val viewHolder = RingResultViewHolder(binding)
 
         binding.imageButton.setOnClickListener {
             val position = viewHolder.adapterPosition
-            if (position != RecyclerView.NO_POSITION){
-                ringResultList.getOrNull(position)?.let{
+            if (position != RecyclerView.NO_POSITION) {
+                ringResultList.getOrNull(position)?.let {
                     clickListener.invoke(it)
                 }
             }
@@ -46,7 +46,7 @@ class RingResultAdapter(val clickListener: (item: RingResult) -> Unit) :
         var binding: ItemRingResultBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ringResult: RingResult) {
-            with (binding) {
+            with(binding) {
                 ringWidthResult.text = ringResult.width
                 ringSizeResult.text = ringResult.size
                 typeRing.text = ringResult.typeRing
