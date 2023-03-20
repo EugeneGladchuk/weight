@@ -14,7 +14,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewTitle"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -52,7 +52,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewCutType"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             app:cardBackgroundColor="@color/card_view"
@@ -99,7 +99,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewGemName"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
@@ -147,7 +147,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewlength"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
@@ -192,7 +192,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewWidth"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
@@ -237,7 +237,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewDepth"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
@@ -340,7 +340,7 @@
 
                     <TextView
                         android:id="@+id/buttonList"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
@@ -348,7 +348,7 @@
                         android:gravity="center"
                         android:text="@string/ButtonList"
                         android:textColor="@color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                 </androidx.cardview.widget.CardView>
 

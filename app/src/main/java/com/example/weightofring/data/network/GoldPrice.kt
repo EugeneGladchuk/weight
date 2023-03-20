@@ -12,7 +12,7 @@ data class Object(
  val USD: Double,
  val EUR: Double,
  val AED: Double,
- val TRY: Double,
+ val TRY: Double
 )
 
 data class GoldPrice(

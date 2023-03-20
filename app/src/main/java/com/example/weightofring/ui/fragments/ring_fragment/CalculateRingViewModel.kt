@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.weightofring.domain.model.DensityGoldEnum
 import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.data.database.ringresult.RingResult
+import com.example.weightofring.data.repositories.GemRepository
+import com.example.weightofring.data.repositories.RingRepository
 import com.example.weightofring.domain.model.TypeRing
 import com.example.weightofring.domain.use_case.CalculateRingWeightUseCase
 import kotlinx.coroutines.launch
@@ -15,7 +17,7 @@ import kotlin.math.floor
 
 class CalculateRingViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val db = AppDatabase.getDatabase(application)
+    private val repository = RingRepository(application)
 
     private val calculateRingWeightUseCase = CalculateRingWeightUseCase()
 
@@ -24,7 +26,7 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
         val error: Boolean
     )
 
-    val myDataList: LiveData<List<RingResult>> = db.ringResultDao().getAll()
+    val myDataList: LiveData<List<RingResult>> = repository.getAllRingResult()
 
     private val _width = MutableLiveData(RingEditTextState(text = "", error = false))
     val width: LiveData<RingEditTextState> get() = _width
@@ -93,7 +95,6 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
                                typeMetal: String,
                                result: Double,
                                resultLengthBase: Double) {
-
         viewModelScope.launch {
             val ringResult = RingResult(
                 null,
@@ -104,13 +105,13 @@ class CalculateRingViewModel(application: Application) : AndroidViewModel(applic
                 typeMetal,
                 result.toString(),
                 resultLengthBase.toString())
-            db.ringResultDao().insertRingResult(ringResult)
+            repository.saveRingToDatabase(ringResult)
         }
     }
 
     fun deleteButtonClick(item: RingResult) {
         viewModelScope.launch {
-            db.ringResultDao().deleteRingResult(item)
+            repository.deleteRingResult(item)
         }
     }
 

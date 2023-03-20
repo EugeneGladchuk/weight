@@ -18,6 +18,8 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun gemResultDao(): GemResultDao
 
     companion object {
+
+
         @Volatile
         private var INSTANCE: AppDatabase? = null
 

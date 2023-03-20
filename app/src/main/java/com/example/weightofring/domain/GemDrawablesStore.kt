@@ -1,67 +1,64 @@
 package com.example.weightofring.domain
 
-
 import androidx.annotation.DrawableRes
 import com.example.weightofring.R
-import com.example.weightofring.domain.model.CutType
-import com.example.weightofring.domain.model.CutType.*
-import com.example.weightofring.domain.model.GemParameters
-import com.example.weightofring.domain.model.GemParameters.*
+import com.example.weightofring.domain.model.CutFormEnum
+import com.example.weightofring.domain.model.GemParametersEnum
 
 object GemDrawablesStore {
 
-    private val gemMap = hashMapOf<GemParameters.NameGemEnum, Map<CutType.CutForm, Int>>(
-        GemParameters.NameGemEnum.DIAMOND to hashMapOf(
-            CutForm.ROUND to R.drawable.rounddiamond,
-            CutForm.PRINCESS to R.drawable.princdiamond,
-            CutForm.OVAL to R.drawable.ovaldiamond,
-            CutForm.EMERALD to R.drawable.emerdiamond,
-            CutForm.BAGUETTE to R.drawable.bagdiamond,
-            CutForm.MARQUIS to R.drawable.marcdiamond
+    private val gemMap = hashMapOf<GemParametersEnum, Map<CutFormEnum, Int>>(
+        GemParametersEnum.DIAMOND to hashMapOf(
+            CutFormEnum.ROUND to R.drawable.rounddiamond,
+            CutFormEnum.PRINCESS to R.drawable.princdiamond,
+            CutFormEnum.OVAL to R.drawable.ovaldiamond,
+            CutFormEnum.EMERALD to R.drawable.emerdiamond,
+            CutFormEnum.BAGUETTE to R.drawable.bagdiamond,
+            CutFormEnum.MARQUIS to R.drawable.marcdiamond
         ) ,
-        NameGemEnum.RUBIN to hashMapOf(
-            CutForm.ROUND to R.drawable.roundrubin,
-            CutForm.PRINCESS to R.drawable.princrub,
-            CutForm.OVAL to R.drawable.ovalrubi,
-            CutForm.EMERALD to R.drawable.emerrubi,
-            CutForm.BAGUETTE to R.drawable.bagrubi,
-            CutForm.MARQUIS to R.drawable.marcrubi
+        GemParametersEnum.RUBIN to hashMapOf(
+            CutFormEnum.ROUND to R.drawable.roundrubin,
+            CutFormEnum.PRINCESS to R.drawable.princrub,
+            CutFormEnum.OVAL to R.drawable.ovalrubi,
+            CutFormEnum.EMERALD to R.drawable.emerrubi,
+            CutFormEnum.BAGUETTE to R.drawable.bagrubi,
+            CutFormEnum.MARQUIS to R.drawable.marcrubi
         ) ,
-        NameGemEnum.CITRINE to hashMapOf(
-            CutForm.ROUND to R.drawable.roundcitrin,
-            CutForm.PRINCESS to R.drawable.princcitrin,
-            CutForm.OVAL to R.drawable.ovalcitrin,
-            CutForm.EMERALD to R.drawable.emercitrin,
-            CutForm.BAGUETTE to R.drawable.bagcitrin,
-            CutForm.MARQUIS to R.drawable.marccitrin
+        GemParametersEnum.CITRINE to hashMapOf(
+            CutFormEnum.ROUND to R.drawable.roundcitrin,
+            CutFormEnum.PRINCESS to R.drawable.princcitrin,
+            CutFormEnum.OVAL to R.drawable.ovalcitrin,
+            CutFormEnum.EMERALD to R.drawable.emercitrin,
+            CutFormEnum.BAGUETTE to R.drawable.bagcitrin,
+            CutFormEnum.MARQUIS to R.drawable.marccitrin
         ) ,
-        NameGemEnum.EMERALD to hashMapOf(
-            CutForm.ROUND to R.drawable.roundemerald,
-            CutForm.PRINCESS to R.drawable.princemer,
-            CutForm.OVAL to R.drawable.ovalemer,
-            CutForm.EMERALD to R.drawable.emeremer,
-            CutForm.BAGUETTE to R.drawable.bagemer,
-            CutForm.MARQUIS to R.drawable.marcemer
+        GemParametersEnum.EMERALD to hashMapOf(
+            CutFormEnum.ROUND to R.drawable.roundemerald,
+            CutFormEnum.PRINCESS to R.drawable.princemer,
+            CutFormEnum.OVAL to R.drawable.ovalemer,
+            CutFormEnum.EMERALD to R.drawable.emeremer,
+            CutFormEnum.BAGUETTE to R.drawable.bagemer,
+            CutFormEnum.MARQUIS to R.drawable.marcemer
         ) ,
-        NameGemEnum.AMETHYST to hashMapOf(
-            CutForm.ROUND to R.drawable.roundamethyst,
-            CutForm.PRINCESS to R.drawable.princamet,
-            CutForm.OVAL to R.drawable.ovalamet,
-            CutForm.EMERALD to R.drawable.emeramet,
-            CutForm.BAGUETTE to R.drawable.bagamet,
-            CutForm.MARQUIS to R.drawable.marcamet
+        GemParametersEnum.AMETHYST to hashMapOf(
+            CutFormEnum.ROUND to R.drawable.roundamethyst,
+            CutFormEnum.PRINCESS to R.drawable.princamet,
+            CutFormEnum.OVAL to R.drawable.ovalamet,
+            CutFormEnum.EMERALD to R.drawable.emeramet,
+            CutFormEnum.BAGUETTE to R.drawable.bagamet,
+            CutFormEnum.MARQUIS to R.drawable.marcamet
          ) ,
-        NameGemEnum.AQUAMARINE to hashMapOf(
-            CutForm.ROUND to R.drawable.roundaqua,
-            CutForm.PRINCESS to R.drawable.princaqua,
-            CutForm.OVAL to R.drawable.ovalaqua,
-            CutForm.EMERALD to R.drawable.emeraqua,
-            CutForm.BAGUETTE to R.drawable.bagaqua,
-            CutForm.MARQUIS to R.drawable.marcaqua
+        GemParametersEnum.AQUAMARINE to hashMapOf(
+            CutFormEnum.ROUND to R.drawable.roundaqua,
+            CutFormEnum.PRINCESS to R.drawable.princaqua,
+            CutFormEnum.OVAL to R.drawable.ovalaqua,
+            CutFormEnum.EMERALD to R.drawable.emeraqua,
+            CutFormEnum.BAGUETTE to R.drawable.bagaqua,
+            CutFormEnum.MARQUIS to R.drawable.marcaqua
         )
     )
     @DrawableRes
-    fun getGemDrawable(gemType: NameGemEnum, cutForm: CutForm): Int? {
+    fun getGemDrawable(gemType: GemParametersEnum, cutForm: CutFormEnum): Int? {
         val gemMapValue = gemMap[gemType] ?: return null
         return gemMapValue[cutForm]
     }

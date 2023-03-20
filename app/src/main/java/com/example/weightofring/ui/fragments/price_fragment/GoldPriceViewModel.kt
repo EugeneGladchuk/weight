@@ -1,18 +1,15 @@
 package com.example.weightofring.ui.fragments.price_fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import com.example.weightofring.data.network.GoldPrice
-import com.example.weightofring.data.network.PriceApi
-import com.example.weightofring.utils.Constants.Companion.API_KEY
+import com.example.weightofring.data.repositories.PriceRepository
 import kotlinx.coroutines.launch
 
 
-class GoldPriceViewModel: ViewModel() {
+class GoldPriceViewModel(application: Application): AndroidViewModel(application) {
 
-    private val repository = PriceApi.retrofitService
+    private val repository = PriceRepository()
 
     private val _goldPrice = MutableLiveData<GoldPrice>()
     val goldPrice: LiveData<GoldPrice> = _goldPrice
@@ -20,11 +17,9 @@ class GoldPriceViewModel: ViewModel() {
     fun buttonUpdateClicked() {
         viewModelScope.launch{
 
-                _goldPrice.value = repository.getLatestPrice(API_KEY)
+                _goldPrice.value = repository.getLatestPrice()
 
-
-
-            /*viewModelScope.launch {
+                /*viewModelScope.launch {
                 kotlin.runCatching {
                     _binDetailsState.value = BinDetailsState.Loading
                     val bin = binText.value
@@ -34,8 +29,10 @@ class GoldPriceViewModel: ViewModel() {
                     _binDetailsState.value = BinDetailsState.Error("Ошибка получения информации о BIN")
                 }
             }*/
-
-
         }
     }
 }
+
+
+
+

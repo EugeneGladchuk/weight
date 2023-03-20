@@ -5,11 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.weightofring.data.database.AppDatabase
+import com.example.weightofring.data.repositories.GemRepository
 import com.example.weightofring.data.database.gemresult.GemResult
 import com.example.weightofring.domain.GemDrawablesStore.getGemDrawable
-import com.example.weightofring.domain.model.CutType
-import com.example.weightofring.domain.model.GemParameters
+import com.example.weightofring.domain.model.CutFormEnum
+import com.example.weightofring.domain.model.GemParametersEnum
 import com.example.weightofring.domain.model.Lists
 import com.example.weightofring.domain.use_case.CalculateGemWeightUseCase
 import kotlinx.coroutines.launch
@@ -17,24 +17,22 @@ import java.lang.Math.floor
 
 class CalculateGemViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val db = AppDatabase.getDatabase(application)
+    private val repository = GemRepository(application)
 
     private val calculateGemWeightUseCase = CalculateGemWeightUseCase()
-
-    private val lists = Lists()
 
     data class CutEditTextState(
         val text: String,
         val error: Boolean
     )
 
-    val myDataList: LiveData<List<GemResult>> = db.gemResultDao().getAll()
+    val myDataList: LiveData<List<GemResult>> = repository.getAllGemResult()
 
-    private val _allGemParameters = MutableLiveData(lists.listGemParameters)
-    val allGemParameters: LiveData<List<GemParameters>> get() = _allGemParameters
+    private val _allGemParameters = MutableLiveData(Lists.listGemParameters)
+    val allGemParameters: LiveData<List<GemParametersEnum>> get() = _allGemParameters
 
-    private val _allCutParameters = MutableLiveData(lists.listCutParameters)
-    val allCutParameters: LiveData<List<CutType>> get() = _allCutParameters
+    private val _allCutParameters = MutableLiveData(Lists.listCutParameters)
+    val allCutParameters: LiveData<List<CutFormEnum>> get() = _allCutParameters
 
     private val _gemImage = MutableLiveData<Int>()
     val gemImage: LiveData<Int> get() = _gemImage
@@ -104,13 +102,12 @@ class CalculateGemViewModel(application: Application) : AndroidViewModel(applica
         if (_lengthGem.value?.error == true || _widthGem.value?.error == true || _depthGem.value?.error == true) {
             _resultCarat.value = 0.0
             _resultGram.value = 0.0
-
         } else {
             _resultCarat.value = resultByCarat
             _resultGram.value = resultByGram
             saveToDatabase(
                 listCut[cutPosition].name,
-                listGem[gemPosition].nameGem,
+                listGem[gemPosition].toString(),
                 lengthGemDouble,
                 widthGemDouble,
                 depthGemDouble,
@@ -137,13 +134,13 @@ class CalculateGemViewModel(application: Application) : AndroidViewModel(applica
                 depthGemDouble.toString(),
                 resultByCarat.toString(),
                 resultByGram.toString())
-            db.gemResultDao().insertGemResult(gemResult)
+            repository.saveGameToDatabase(gemResult)
         }
     }
 
     fun deleteButtonClick(item: GemResult) {
         viewModelScope.launch {
-            db.gemResultDao().deleteGemResult(item)
+            repository.deleteGemResult(item)
         }
     }
 
@@ -155,8 +152,8 @@ class CalculateGemViewModel(application: Application) : AndroidViewModel(applica
 
         if (gemPosition != null && cutPosition != null && listGem != null && listCut != null) {
             val imgRes = getGemDrawable(
-                listGem[gemPosition].nameEnum,
-                listCut[cutPosition].form
+                listGem[gemPosition],
+                listCut[cutPosition]
             )
             imgRes?.let {
                 _gemImage.value = it

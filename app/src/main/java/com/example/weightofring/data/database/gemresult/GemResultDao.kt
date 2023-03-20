@@ -11,11 +11,11 @@ interface GemResultDao {
     fun getAll(): LiveData<List<GemResult>>
 
     @Insert
-    suspend fun insertGemResult(ringResult: GemResult)
+    suspend fun insertGemResult(gemResult: GemResult)
 
     @Delete
-    suspend fun deleteGemResult(ringResult: GemResult)
+    suspend fun deleteGemResult(gemResult: GemResult)
 
     @Update
-    suspend fun updateGemResult(ringResult: GemResult)
+    suspend fun updateGemResult(gemResult: GemResult)
 }

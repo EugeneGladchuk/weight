@@ -1,8 +1,13 @@
 package com.example.weightofring.domain
 
-import com.example.weightofring.data.database.AppDatabase
+import androidx.lifecycle.LiveData
+import com.example.weightofring.data.database.gemresult.GemResult
 
-class Repository(val networkDatabase: AppDatabase) {
+interface Repository {
+
+    fun getAll(): LiveData<List<GemResult>>
+    suspend fun saveToDatabase(gemResult: GemResult)
+    suspend fun deleteGemResult(item: GemResult)
 
     /*suspend fun insertResult() = db.ringResultDao().insertRingResult()*/
 

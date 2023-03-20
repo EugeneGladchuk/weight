@@ -29,13 +29,13 @@ class GoldPriceFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[GoldPriceViewModel::class.java]
 
-        binding.buttonUpdate.setOnClickListener {
+        /*binding.buttonUpdate.setOnClickListener {
             viewModel.buttonUpdateClicked()
         }
 
         viewModel.goldPrice.observe(viewLifecycleOwner) {
             binding.textViewPriceResult.text = it.rates.XAU.toString()
-        }
+        }*/
     }
 
     companion object {

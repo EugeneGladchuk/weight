@@ -52,7 +52,7 @@ class GemResultListAdapter(val clickListener: (item: GemResult) -> Unit) :
                 gemWidthResult.text = gemResult.gemWidth
                 gemDepthResult.text = gemResult.gemDepth
                 resultByCarat.text = gemResult.resultCarat
-                resultByGram.text = gemResult.resultCarat
+                resultByGram.text = gemResult.resultGram
             }
         }
     }

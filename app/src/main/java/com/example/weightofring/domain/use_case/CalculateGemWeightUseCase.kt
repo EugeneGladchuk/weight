@@ -1,7 +1,7 @@
 package com.example.weightofring.domain.use_case
 
-import com.example.weightofring.domain.model.CutType
-import com.example.weightofring.domain.model.GemParameters
+import com.example.weightofring.domain.model.CutFormEnum
+import com.example.weightofring.domain.model.GemParametersEnum
 import java.lang.Math.floor
 
 class CalculateGemWeightUseCase {
@@ -12,8 +12,8 @@ class CalculateGemWeightUseCase {
         depthGemDouble: Double,
         gemPosition: Int,
         cutPosition: Int,
-        listGem: List<GemParameters>,
-        listCut: List<CutType>
+        listGem: List<GemParametersEnum>,
+        listCut: List<CutFormEnum>
     ): Double {
 
         val densityGemCalculate = listGem[gemPosition].densityGem.toDouble()
@@ -21,7 +21,7 @@ class CalculateGemWeightUseCase {
 
         val sizePrincess = (lengthGemDouble + widthGemDouble) / 2
 
-        val sizeGem = if (listCut[cutPosition].form == CutType.CutForm.OVAL) {
+        val sizeGem = if (listCut[cutPosition] == CutFormEnum.OVAL) {
             sizePrincess * sizePrincess * depthGemDouble
         } else {
             lengthGemDouble * widthGemDouble * depthGemDouble

@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface RingResultDao {
 
-    @Query("SELECT * FROM ringresult")
+    @Query("SELECT * FROM ringresult ORDER BY id DESC")
     fun getAll(): LiveData<List<RingResult>>
 
     @Insert
