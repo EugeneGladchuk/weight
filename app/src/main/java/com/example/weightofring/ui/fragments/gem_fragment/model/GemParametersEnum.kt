@@ -1,4 +1,4 @@
-package com.example.weightofring.domain.model
+package com.example.weightofring.ui.fragments.gem_fragment.model
 
 enum class GemParametersEnum(val densityGem: String) {
     DIAMOND("3.52"),

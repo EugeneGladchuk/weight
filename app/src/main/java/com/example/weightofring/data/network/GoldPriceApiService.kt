@@ -20,7 +20,7 @@ interface GoldPriceService {
     @GET("latest")
     suspend fun getLatestPrice(
         @Query("access_key") access_key: String
-    ): GoldPrice
+    ): GoldPriceApi
 }
 
 object PriceApi {

@@ -1,5 +1,7 @@
 package com.example.weightofring.domain.model
 
+import com.example.weightofring.ui.fragments.gem_fragment.model.GemParametersEnum
+
 object Lists {
 
     val listGemParameters: List<GemParametersEnum> = listOf(

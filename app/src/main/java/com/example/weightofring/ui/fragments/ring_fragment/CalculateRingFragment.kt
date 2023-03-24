@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.weightofring.domain.model.DensityGoldEnum
+import com.example.weightofring.ui.fragments.ring_fragment.model.DensityGoldEnum
 import com.example.weightofring.R
 import com.example.weightofring.databinding.FragmentCalculateRingBinding
-import com.example.weightofring.domain.model.TypeRing
+import com.example.weightofring.ui.fragments.ring_fragment.model.TypeRing
 import com.example.weightofring.ui.fragments.ring_fragment.RingListResultFragment.Companion.RING_LIST_RESULT
 
 class CalculateRingFragment : Fragment() {

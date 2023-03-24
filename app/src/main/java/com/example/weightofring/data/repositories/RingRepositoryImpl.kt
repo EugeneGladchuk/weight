@@ -4,20 +4,21 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.data.database.ringresult.RingResult
+import com.example.weightofring.domain.reposytories.RingRepository
 
-class RingRepository(application: Application) {
+class RingRepositoryImpl(application: Application): RingRepository {
 
     private val db = AppDatabase.getDatabase(application)
 
-    fun getAllRingResult(): LiveData<List<RingResult>> {
+    override fun getAllRingResult(): LiveData<List<RingResult>> {
         return db.ringResultDao().getAll()
     }
 
-    suspend fun saveRingToDatabase(ringResult: RingResult) {
+    override suspend fun saveRingToDatabase(ringResult: RingResult) {
         db.ringResultDao().insertRingResult(ringResult)
     }
 
-    suspend fun deleteRingResult(item: RingResult) {
+    override suspend fun deleteRingResult(item: RingResult) {
         db.ringResultDao().deleteRingResult(item)
     }
 }

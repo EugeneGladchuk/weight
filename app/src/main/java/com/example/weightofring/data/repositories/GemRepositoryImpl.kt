@@ -4,20 +4,21 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.data.database.gemresult.GemResult
+import com.example.weightofring.domain.reposytories.GemRepository
 
-class GemRepository(application: Application) {
+class GemRepositoryImpl(application: Application): GemRepository {
 
     private val db = AppDatabase.getDatabase(application)
 
-    fun getAllGemResult(): LiveData<List<GemResult>> {
+    override fun getAllGemResult(): LiveData<List<GemResult>> {
         return db.gemResultDao().getAll()
     }
 
-    suspend fun saveGameToDatabase(gemResult: GemResult) {
+    override suspend fun saveGameToDatabase(gemResult: GemResult) {
         db.gemResultDao().insertGemResult(gemResult)
     }
 
-    suspend fun deleteGemResult(item: GemResult) {
+    override suspend fun deleteGemResult(item: GemResult) {
         db.gemResultDao().deleteGemResult(item)
     }
 }

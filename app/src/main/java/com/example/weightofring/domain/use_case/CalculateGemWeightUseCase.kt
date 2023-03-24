@@ -1,7 +1,7 @@
 package com.example.weightofring.domain.use_case
 
 import com.example.weightofring.domain.model.CutFormEnum
-import com.example.weightofring.domain.model.GemParametersEnum
+import com.example.weightofring.ui.fragments.gem_fragment.model.GemParametersEnum
 import java.lang.Math.floor
 
 class CalculateGemWeightUseCase {

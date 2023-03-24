@@ -6,16 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.weightofring.data.database.gemresult.GemResult
 import com.example.weightofring.data.database.gemresult.GemResultDao
+import com.example.weightofring.data.database.goldprice.GoldPriceDao
+import com.example.weightofring.data.database.goldprice.GoldPriceEntity
 import com.example.weightofring.data.database.ringresult.RingResult
 import com.example.weightofring.data.database.ringresult.RingResultDao
 
-@Database(entities = [RingResult::class, GemResult::class], version = 1)
+@Database(entities = [RingResult::class, GemResult::class, GoldPriceEntity::class], version = 1)
 
 
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun ringResultDao(): RingResultDao
     abstract fun gemResultDao(): GemResultDao
+    abstract fun goldPriceDao(): GoldPriceDao
 
     companion object {
 

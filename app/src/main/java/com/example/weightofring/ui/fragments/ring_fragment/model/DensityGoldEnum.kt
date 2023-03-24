@@ -1,4 +1,4 @@
-package com.example.weightofring.domain.model
+package com.example.weightofring.ui.fragments.ring_fragment.model
 
 enum class DensityGoldEnum(var dens: Double) {
 

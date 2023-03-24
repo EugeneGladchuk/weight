@@ -59,6 +59,7 @@
                 app:cardElevation="7dp">
 
                 <ImageView
+                    android:id="@+id/buttonUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_baseline_update_24"
@@ -240,6 +241,7 @@
                         app:layout_constraintBottom_toBottomOf="parent">
 
                         <TextView
+                            android:id="@+id/from"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="0.0"

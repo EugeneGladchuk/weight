@@ -5,19 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.weightofring.domain.model.DensityGoldEnum
-import com.example.weightofring.data.database.AppDatabase
+import com.example.weightofring.ui.fragments.ring_fragment.model.DensityGoldEnum
 import com.example.weightofring.data.database.ringresult.RingResult
-import com.example.weightofring.data.repositories.GemRepository
-import com.example.weightofring.data.repositories.RingRepository
-import com.example.weightofring.domain.model.TypeRing
+import com.example.weightofring.di.factory.RingRepositoryFactory
+import com.example.weightofring.ui.fragments.ring_fragment.model.TypeRing
 import com.example.weightofring.domain.use_case.CalculateRingWeightUseCase
 import kotlinx.coroutines.launch
 import kotlin.math.floor
 
 class CalculateRingViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = RingRepository(application)
+    private val repository = RingRepositoryFactory.getRingRepository(application)
 
     private val calculateRingWeightUseCase = CalculateRingWeightUseCase()
 

@@ -5,11 +5,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.weightofring.data.repositories.GemRepository
 import com.example.weightofring.data.database.gemresult.GemResult
+import com.example.weightofring.di.factory.GemRepositoryFactory
 import com.example.weightofring.domain.GemDrawablesStore.getGemDrawable
+import com.example.weightofring.domain.reposytories.GemRepository
 import com.example.weightofring.domain.model.CutFormEnum
-import com.example.weightofring.domain.model.GemParametersEnum
+import com.example.weightofring.ui.fragments.gem_fragment.model.GemParametersEnum
 import com.example.weightofring.domain.model.Lists
 import com.example.weightofring.domain.use_case.CalculateGemWeightUseCase
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ import java.lang.Math.floor
 
 class CalculateGemViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = GemRepository(application)
+    private val repository: GemRepository = GemRepositoryFactory.getGemRepository(application)
 
     private val calculateGemWeightUseCase = CalculateGemWeightUseCase()
 

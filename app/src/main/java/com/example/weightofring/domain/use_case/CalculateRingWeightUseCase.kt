@@ -1,7 +1,7 @@
 package com.example.weightofring.domain.use_case
 
-import com.example.weightofring.domain.model.DensityGoldEnum
-import com.example.weightofring.domain.model.TypeRing
+import com.example.weightofring.ui.fragments.ring_fragment.model.DensityGoldEnum
+import com.example.weightofring.ui.fragments.ring_fragment.model.TypeRing
 import kotlin.math.PI
 import kotlin.math.floor
 
