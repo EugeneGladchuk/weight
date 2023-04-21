@@ -3,9 +3,8 @@ package com.example.weightofring.data.database.goldprice
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.weightofring.data.network.GoldPriceApi
-import com.example.weightofring.domain.model.Currency
 import com.example.weightofring.domain.model.GoldPriceForUi
-import com.example.weightofring.domain.model.Metal
+import com.example.weightofring.utils.Constants.Companion.BASE_CURRENCY
 
 @Entity
 data class GoldPriceEntity(
@@ -13,19 +12,14 @@ data class GoldPriceEntity(
     val id: Long? = null,
     val success: Boolean,
     val timestamp: Long,
-    val date: String,
     val base: String,
     //metal
     val gold: Double,
     val silver: Double,
     val platinum: Double,
-    val bronze: Double,
-    val titanium: Double,
-    val rhodium: Double,
-    val ruthenium: Double,
+    val palladium: Double,
     //currency
     val russian_ruble: Double,
-    val united_states_dollar: Double,
     val canadian_dollar: Double,
     val czech_koruna: Double,
     val euro: Double,
@@ -39,17 +33,12 @@ data class GoldPriceEntity(
             return GoldPriceEntity(
                 success = goldPriceApi.success,
                 timestamp = goldPriceApi.timestamp,
-                date = goldPriceApi.date,
                 base = goldPriceApi.base,
                 gold = goldPriceApi.rates.XAU,
                 silver = goldPriceApi.rates.XAG,
                 platinum = goldPriceApi.rates.XPT,
-                bronze = goldPriceApi.rates.BRONZE,
-                titanium = goldPriceApi.rates.TITANIUM,
-                rhodium = goldPriceApi.rates.XRH,
-                ruthenium = goldPriceApi.rates.RUTH,
+                palladium = goldPriceApi.rates.XPD,
                 russian_ruble = goldPriceApi.rates.RUB,
-                united_states_dollar = goldPriceApi.rates.USD,
                 canadian_dollar = goldPriceApi.rates.CAD,
                 czech_koruna = goldPriceApi.rates.CZK,
                 euro = goldPriceApi.rates.EUR,
@@ -60,29 +49,26 @@ data class GoldPriceEntity(
             )
         }
 
-        fun mapToGoldPriceForUi(goldPriceEntity: GoldPriceEntity): GoldPriceForUi {
+        fun mapToGoldPriceForUi(goldPriceEntity: GoldPriceEntity?): GoldPriceForUi? {
+            if (goldPriceEntity == null) return null
             return GoldPriceForUi(
                 timestamp = goldPriceEntity.timestamp,
-                date = goldPriceEntity.date,
-                metal = Metal(
-                    gold = goldPriceEntity.gold,
-                    silver = goldPriceEntity.silver,
-                    platinum = goldPriceEntity.platinum,
-                    bronze = goldPriceEntity.bronze,
-                    titanium = goldPriceEntity.titanium,
-                    rhodium = goldPriceEntity.rhodium,
-                    ruthenium = goldPriceEntity.ruthenium
+                metal = mutableListOf(
+                    goldPriceEntity.gold,
+                    goldPriceEntity.silver,
+                    goldPriceEntity.platinum,
+                    goldPriceEntity.palladium
                 ),
-                currency = Currency(
-                    russianRuble = goldPriceEntity.russian_ruble,
-                    unitedStatesDollar = goldPriceEntity.united_states_dollar,
-                    canadianDollar = goldPriceEntity.canadian_dollar,
-                    czechKoruna = goldPriceEntity.czech_koruna,
-                    euro = goldPriceEntity.euro,
-                    japaneseYen = goldPriceEntity.japanese_yen,
-                    turkishLira = goldPriceEntity.turkish_lira,
-                    ukrainianHryvnia = goldPriceEntity.ukrainian_hryvnia,
-                    unitedArabEmiratesDirham = goldPriceEntity.united_arab_emirates_dirham
+                currency = mutableListOf(
+                    BASE_CURRENCY.toDouble(),
+                    goldPriceEntity.russian_ruble,
+                    goldPriceEntity.canadian_dollar,
+                    goldPriceEntity.czech_koruna,
+                    goldPriceEntity.euro,
+                    goldPriceEntity.japanese_yen,
+                    goldPriceEntity.turkish_lira,
+                    goldPriceEntity.ukrainian_hryvnia,
+                    goldPriceEntity.united_arab_emirates_dirham
                 )
             )
         }

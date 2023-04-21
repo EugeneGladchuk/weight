@@ -1,4 +1,4 @@
-package com.example.weightofring.domain.model
+package com.example.weightofring.ui.fragments.gem_fragment.model
 
 enum class CutFormEnum(val calculationCoefficient: String) {
     ROUND("0.0018"),

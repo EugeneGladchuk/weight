@@ -1,6 +1,9 @@
 package com.example.weightofring.data.repositories
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.data.database.goldprice.GoldPriceEntity
 import com.example.weightofring.data.network.GoldPriceApi
@@ -21,9 +24,10 @@ class PriceRepositoryImpl(application: Application): PriceRepository {
         return goldPriceApi
     }
 
-    override suspend fun getPriceFromDatabase(): GoldPriceForUi {
-        val goldPriceForUi = db.goldPriceDao().getLatestGoldPrice()
-        return GoldPriceEntity.mapToGoldPriceForUi(goldPriceForUi)
+    override fun getPriceFromDatabase(): LiveData<GoldPriceForUi?> {
+        return db.goldPriceDao().getLatestGoldPrice().map {
+            GoldPriceEntity.mapToGoldPriceForUi(it)
+        }
     }
 
 

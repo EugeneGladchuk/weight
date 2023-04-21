@@ -9,10 +9,10 @@ import com.example.weightofring.data.database.gemresult.GemResult
 import com.example.weightofring.di.factory.GemRepositoryFactory
 import com.example.weightofring.domain.GemDrawablesStore.getGemDrawable
 import com.example.weightofring.domain.reposytories.GemRepository
-import com.example.weightofring.domain.model.CutFormEnum
 import com.example.weightofring.ui.fragments.gem_fragment.model.GemParametersEnum
 import com.example.weightofring.domain.model.Lists
 import com.example.weightofring.domain.use_case.CalculateGemWeightUseCase
+import com.example.weightofring.ui.fragments.gem_fragment.model.CutFormEnum
 import kotlinx.coroutines.launch
 import java.lang.Math.floor
 

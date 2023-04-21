@@ -19,7 +19,7 @@ private val retrofit = Retrofit.Builder()
 interface GoldPriceService {
     @GET("latest")
     suspend fun getLatestPrice(
-        @Query("access_key") access_key: String
+        @Query("api_key") access_key: String
     ): GoldPriceApi
 }
 

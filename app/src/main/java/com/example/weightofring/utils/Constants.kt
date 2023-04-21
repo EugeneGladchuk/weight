@@ -4,8 +4,11 @@ class Constants {
 
     companion object {
 
-        const val API_KEY = "633h97a2ao7r9um2poob5l2kliztucerajozhh95yq6s85g3c4rg06xls2w8"
-        const val BASE_URL = "https://metals-api.com/api/"
+        const val API_KEY = "8e318e6d3b197a8797882fc8cda39eb3"
+
+        const val BASE_URL = "https://api.metalpriceapi.com/v1/"
+
+        const val BASE_CURRENCY = "1.0"
 
     }
 }

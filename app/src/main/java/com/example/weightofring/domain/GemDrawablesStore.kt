@@ -2,7 +2,7 @@ package com.example.weightofring.domain
 
 import androidx.annotation.DrawableRes
 import com.example.weightofring.R
-import com.example.weightofring.domain.model.CutFormEnum
+import com.example.weightofring.ui.fragments.gem_fragment.model.CutFormEnum
 import com.example.weightofring.ui.fragments.gem_fragment.model.GemParametersEnum
 
 object GemDrawablesStore {

@@ -194,7 +194,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:layout_weight="0.5"
-                                android:text="FROM"
+                                android:text="TO"
                                 android:textColor="@color/active_button"
                                 android:textSize="18sp" />
 
@@ -240,11 +240,12 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent">
 
-                        <TextView
-                            android:id="@+id/from"
+                        <EditText
+                            android:id="@+id/editTextFrom"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="0.0"
+                            android:saveEnabled="false"
                             android:padding="15dp"
                             android:textAlignment="center"
                             android:textColor="#F10A0A"
@@ -267,11 +268,13 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent">
 
-                        <TextView
+                        <EditText
+                            android:id="@+id/editTextTo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0.0"
                             android:padding="15dp"
+                            android:text="0.0"
+                            android:saveEnabled="false"
                             android:textAlignment="center"
                             android:textColor="#F10A0A"
                             android:textSize="55sp"
@@ -369,7 +372,7 @@
                             app:cardCornerRadius="5dp">
 
                             <Spinner
-                                android:id="@+id/cutSpinner"
+                                android:id="@+id/metalSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:saveEnabled="false" />
@@ -503,10 +506,12 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent">
 
-                        <TextView
+                        <EditText
+                            android:id="@+id/editTextUnit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="0.0"
+                            android:saveEnabled="false"
                             android:padding="15dp"
                             android:textAlignment="center"
                             android:textColor="#F10A0A"
@@ -529,10 +534,12 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent">
 
-                        <TextView
+                        <EditText
+                            android:id="@+id/editTextPrice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="0.0"
+                            android:saveEnabled="false"
                             android:padding="15dp"
                             android:textAlignment="center"
                             android:textColor="#F10A0A"

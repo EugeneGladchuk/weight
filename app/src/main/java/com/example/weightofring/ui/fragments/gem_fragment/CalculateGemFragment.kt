@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.weightofring.R
 import com.example.weightofring.databinding.FragmentCalculateGemBinding
-import com.example.weightofring.domain.model.CutFormEnum
+import com.example.weightofring.ui.fragments.gem_fragment.model.CutFormEnum
 
 import com.example.weightofring.ui.fragments.gem_fragment.model.GemParametersEnum
 
@@ -21,7 +21,7 @@ class CalculateGemFragment : Fragment() {
 
     lateinit var binding: FragmentCalculateGemBinding
 
-    lateinit var adapter: ArrayAdapter<GemParametersEnum>
+    lateinit var adapterGem: ArrayAdapter<GemParametersEnum>
     lateinit var adapterCut: ArrayAdapter<CutFormEnum>
 
     private val gemTypeListener = object : AdapterView.OnItemSelectedListener {
@@ -166,13 +166,13 @@ class CalculateGemFragment : Fragment() {
     }
 
     private fun setupListGemParameters(list: List<GemParametersEnum>) {
-        adapter = ArrayAdapter(
+        adapterGem = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_list_item_activated_1,
             android.R.id.text1,
             list
         )
-        binding.gemSpinner.adapter = adapter
+        binding.gemSpinner.adapter = adapterGem
         binding.gemSpinner.onItemSelectedListener = gemTypeListener
     }
 
