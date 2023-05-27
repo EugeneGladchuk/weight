@@ -1,13 +1,18 @@
-package com.example.weightofring
+package com.example.weightofring.ui.fragments.start_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.weightofring.CalculateGemFragment.Companion.GEM
-import com.example.weightofring.CalculateRingFragment.Companion.RING
+import com.example.weightofring.R
+import com.example.weightofring.ui.fragments.gem_fragment.CalculateGemFragment.Companion.GEM
+import com.example.weightofring.ui.fragments.ring_fragment.CalculateRingFragment.Companion.RING
+import com.example.weightofring.ui.fragments.price_fragment.GoldPriceFragment.Companion.PRICE
 import com.example.weightofring.databinding.FragmentStartBinding
+import com.example.weightofring.ui.fragments.gem_fragment.CalculateGemFragment
+import com.example.weightofring.ui.fragments.price_fragment.GoldPriceFragment
+import com.example.weightofring.ui.fragments.ring_fragment.CalculateRingFragment
 
 
 class StartFragment : Fragment() {
@@ -27,7 +32,7 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.imageButtonRing.setOnClickListener {
+        binding.buttonRing.setOnClickListener {
             activity?.run {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, CalculateRingFragment.newInstance())
@@ -35,7 +40,7 @@ class StartFragment : Fragment() {
                     .commit()
             }
         }
-        binding.imageButtonGem.setOnClickListener {
+        binding.buttonGem.setOnClickListener {
             activity?.run {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, CalculateGemFragment.newInstance())
@@ -43,11 +48,18 @@ class StartFragment : Fragment() {
                     .commit()
             }
         }
+        binding.buttonGoldPrice.setOnClickListener {
+            activity?.run {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, GoldPriceFragment.newInstance())
+                    .addToBackStack(PRICE)
+                    .commit()
+            }
+        }
     }
 
     companion object {
 
-        @JvmStatic
         fun newInstance() = StartFragment()
     }
 }
