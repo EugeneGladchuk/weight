@@ -2,7 +2,7 @@
 ### Описание
 Приложение помогает быстро и удобно производить различные расчеты необходимые при производстве ювелирных изделий. А так же узнавать текущий обменный курс валют и цены на драгоценные металлы
 
-**1** ![](https://github.com/EugeneGladchuk/weight/blob/main/Screenshot_35.jpg) **2** ![](https://github.com/EugeneGladchuk/weight/blob/main/Screenshot_37.jpg) **3** ![](https://github.com/EugeneGladchuk/weight/blob/main/Screenshot_38.jpg)
+![](https://github.com/EugeneGladchuk/weight/blob/main/Screenshot_35.jpg) **1** ![](https://github.com/EugeneGladchuk/weight/blob/main/Screenshot_37.jpg) **2** ![](https://github.com/EugeneGladchuk/weight/blob/main/Screenshot_38.jpg) **3**
 
 1) При расчете веса можно выбирать различный профиль кольца и разные металлы
 2) При расчете веса камней можно выбрать различные виды камней и типы огранки
