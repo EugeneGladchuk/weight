@@ -10,6 +10,7 @@ import com.example.weightofring.ui.fragments.gem_fragment.CalculateGemFragment.C
 import com.example.weightofring.ui.fragments.ring_fragment.CalculateRingFragment.Companion.RING
 import com.example.weightofring.ui.fragments.price_fragment.GoldPriceFragment.Companion.PRICE
 import com.example.weightofring.databinding.FragmentStartBinding
+import com.example.weightofring.ui.fragments.cross_fragment.CalculateCrossFragment
 import com.example.weightofring.ui.fragments.gem_fragment.CalculateGemFragment
 import com.example.weightofring.ui.fragments.price_fragment.GoldPriceFragment
 import com.example.weightofring.ui.fragments.ring_fragment.CalculateRingFragment
@@ -48,6 +49,16 @@ class StartFragment : Fragment() {
                     .commit()
             }
         }
+
+        binding.buttonCross.setOnClickListener {
+            activity?.run {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, CalculateCrossFragment.newInstance())
+                    .addToBackStack(GEM)
+                    .commit()
+            }
+        }
+
         binding.buttonGoldPrice.setOnClickListener {
             activity?.run {
                 supportFragmentManager.beginTransaction()

@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/textViewParameters"
+                android:text="ВВЕДИТЕ ПАРАМЕТРЫ КРЕСТА"
                 android:textColor="@color/active_button"
                 android:textSize="23sp"
                 android:textStyle="bold"
@@ -44,8 +44,8 @@
 
         <ImageView
             android:id="@+id/exampleImage"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
             android:scaleType="centerCrop"
             android:src="@drawable/classic_ring"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
                 android:padding="3dp">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardViewClassic"
+                    android:id="@+id/cardViewSquareCross"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="2dp"
@@ -85,14 +85,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/classicRing"
+                        android:text="ПРЯМОУГОЛНЫЙ"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardViewEuropean"
+                    android:id="@+id/cardViewRoundCross"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="2dp"
@@ -105,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/europeanRing"
+                        android:text="КРУГЛЫЙ"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
 
@@ -253,18 +253,18 @@
                 android:padding="3dp">
 
                 <TextView
-                    android:id="@+id/textViewSize"
+                    android:id="@+id/textViewLength"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/editTextSize"
+                    android:text="ДЛИНА"
                     android:textStyle="bold"
                     android:textColor="@color/active_button"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editTextSizeRing"
+                    android:id="@+id/editTextLength"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.6"
@@ -307,10 +307,10 @@
                     android:text="@string/editTextWidth"
                     android:textStyle="bold"
                     android:textColor="@color/active_button"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editTextWidthRing"
+                    android:id="@+id/editTextWidth"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.6"
@@ -326,7 +326,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewRayWidth"
+            android:id="@+id/cardViewThickness"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginStart="5dp"
@@ -353,10 +353,56 @@
                     android:text="@string/editTextThickness"
                     android:textStyle="bold"
                     android:textColor="@color/active_button"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editTextThicknessRing"
+                    android:id="@+id/editTextThickness"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.6"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:saveEnabled="false"
+                    android:text="12.3"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewRayWidth"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:cardBackgroundColor="@color/card_view"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewThickness">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/textViewRayWidth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="ШИРИНА ЛУЧА"
+                    android:textStyle="bold"
+                    android:textColor="@color/active_button"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextRayWidth"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.6"
@@ -392,7 +438,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewButtonResult"
-                    android:layout_width="0dp"
+                    android:layout_width="250dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
@@ -400,7 +446,7 @@
                     app:cardBackgroundColor="@color/active_button"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="0dp"
-                    app:layout_constraintEnd_toStartOf="@+id/cardViewButtonList"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -415,32 +461,6 @@
                         android:text="@string/ButtonResult"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardViewButtonList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginTop="5dp"
-                    app:cardBackgroundColor="@color/active_button"
-                    app:cardCornerRadius="5dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                    <TextView
-                        android:id="@+id/buttonList"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center"
-                        android:text="@string/ButtonList"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -464,7 +484,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="Вес кольца:"
+                            android:text="Вес креста:"
                             android:textColor="@color/active_button"
                             android:textSize="22sp"
                             app:layout_constraintBottom_toBottomOf="@+id/textViewResult"
@@ -495,43 +515,6 @@
                             app:layout_constraintBottom_toBottomOf="@+id/textViewResult"
                             app:layout_constraintStart_toEndOf="@+id/textViewResult"
                             app:layout_constraintTop_toTopOf="@+id/textViewResult" />
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Заготовка:"
-                            android:textColor="@color/active_button"
-                            android:textSize="20sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/textViewLengthBase"
-                            app:layout_constraintEnd_toEndOf="@+id/textView3"
-                            app:layout_constraintTop_toTopOf="@+id/textViewLengthBase" />
-
-                        <TextView
-                            android:id="@+id/textViewLengthBase"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="0.0"
-                            android:textAlignment="center"
-                            android:textColor="#F10A0A"
-                            android:textSize="30sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textView4"
-                            app:layout_constraintTop_toBottomOf="@id/textViewResult" />
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="мм"
-                            android:textColor="@color/active_button"
-                            android:textSize="20sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/textViewLengthBase"
-                            app:layout_constraintStart_toEndOf="@+id/textViewLengthBase"
-                            app:layout_constraintTop_toTopOf="@+id/textViewLengthBase" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
