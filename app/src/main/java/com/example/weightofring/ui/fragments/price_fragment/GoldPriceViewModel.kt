@@ -5,25 +5,32 @@ import androidx.lifecycle.*
 import com.example.weightofring.di.factory.PriceRepositoryFactory
 import com.example.weightofring.domain.model.GoldPriceForUi
 import com.example.weightofring.domain.model.Lists
-import com.example.weightofring.domain.use_case.CalculateExchangeRateOtherSideUseCase
-import com.example.weightofring.domain.use_case.CalculateExchangeRateUseCase
-import com.example.weightofring.domain.use_case.CalculateMetalPriceOtherSideUseCase
-import com.example.weightofring.domain.use_case.CalculateMetalPriceUseCase
+import com.example.weightofring.domain.use_case.*
 import com.example.weightofring.ui.fragments.price_fragment.model.CurrencyForSpinner
+import com.example.weightofring.ui.fragments.price_fragment.model.GoldPriceState
 import com.example.weightofring.ui.fragments.price_fragment.model.MetalForSpinner
 import com.example.weightofring.ui.fragments.price_fragment.model.UnitEnum
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class GoldPriceViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = PriceRepositoryFactory.getPriceRepository(application)
 
+    private val calculateTimeUntilNextUpdateUseCase = CalculateTimeUntilNextUpdateUseCase()
     private val calculateExchangeRateUseCase = CalculateExchangeRateUseCase()
     private val calculateExchangeRateOtherSideUseCase = CalculateExchangeRateOtherSideUseCase()
     private val calculateMetalPriceUseCase = CalculateMetalPriceUseCase()
     private val calculateMetalPriceOtherSideUseCase = CalculateMetalPriceOtherSideUseCase()
 
     val goldPrice: LiveData<GoldPriceForUi?> = repository.getPriceFromDatabase()
+
+    private val _goldPriceState = MutableLiveData<GoldPriceState>(GoldPriceState.NoData)
+    val goldPriceState: LiveData<GoldPriceState> get() = _goldPriceState
 
     private val _listCurrency = MutableLiveData<MutableList<CurrencyForSpinner>>(Lists.listCurrency)
     val listCurrency: LiveData<MutableList<CurrencyForSpinner>> get() = _listCurrency
@@ -65,24 +72,60 @@ class GoldPriceViewModel(application: Application) : AndroidViewModel(applicatio
     val textCurrencyPrice: LiveData<String> get() = _textCurrencyPrice
 
 
-    fun buttonUpdateClicked() {
-        viewModelScope.launch {
-            repository.getLatestPrice()
-
-            /*viewModelScope.launch {
-                    kotlin.runCatching {
-                        _binDetailsState.value = BinDetailsState.Loading
-                        val bin = binText.value
-                        val binInfo = repository.loadBin(bin)
-                        _binDetailsState.value = BinDetailsState.Success(binInfo)
-                    }.onFailure {
-                        _binDetailsState.value = BinDetailsState.Error("Ошибка получения информации о BIN")
-                    }
-                }*/
+    fun buttonUpdateClicked(): Boolean {
+        if (goldPrice.value == null) {
+            updateData()
+        } else {
+            if (calculateTimeUntilNextUpdateUseCase.calculateTime(goldPrice.value!!.updateTime)) {
+                updateData()
+            }
+        }
+        return if (goldPrice.value != null) {
+            calculateTimeUntilNextUpdateUseCase.calculateTime(goldPrice.value!!.updateTime)
+        } else {
+            false
         }
     }
 
+    fun checkGoldPriceForNull(): Boolean {
+        return goldPrice.value == null
+    }
+
+    private fun updateData() {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                _goldPriceState.value = GoldPriceState.Loading
+                repository.getLatestPrice()
+                _goldPriceState.value = GoldPriceState.Success
+            }.onFailure {
+                _goldPriceState.value = GoldPriceState.Error
+                delay(100)
+                if (goldPrice.value == null) {
+                    _goldPriceState.value = GoldPriceState.NoData
+                } else {
+                    _goldPriceState.value = GoldPriceState.Success
+                }
+            }
+        }
+    }
+
+    private fun convertLastUpdateDate(time: Long): String {
+        val date = LocalDateTime.ofInstant(
+            Instant.ofEpochSecond(time),
+            ZoneId.systemDefault()
+        )
+        val formattedDate = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm").format(date)
+        return formattedDate.toString()
+    }
+
+    fun getDateForDialog(): String {
+        val availableDate = calculateTimeUntilNextUpdateUseCase.calculateAvailableDate(goldPrice.value!!.updateTime)
+        return convertLastUpdateDate(availableDate)
+    }
+
     fun goldPriceChanged() {
+        _goldPriceState.value = GoldPriceState.Success
+        _lastUpdateDate.value = convertLastUpdateDate(goldPrice.value!!.updateTime)
         calculateExchange()
         calculateMetalPrice()
     }

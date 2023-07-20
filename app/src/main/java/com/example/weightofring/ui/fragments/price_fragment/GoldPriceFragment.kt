@@ -9,10 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.widget.doOnTextChanged
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.weightofring.databinding.FragmentGoldPriceBinding
 import com.example.weightofring.ui.fragments.price_fragment.model.CurrencyForSpinner
+import com.example.weightofring.ui.fragments.price_fragment.model.GoldPriceState
 import com.example.weightofring.ui.fragments.price_fragment.model.MetalForSpinner
 import com.example.weightofring.ui.fragments.price_fragment.model.UnitEnum
 
@@ -78,10 +81,9 @@ class GoldPriceFragment : Fragment() {
         override fun afterTextChanged(p0: Editable?) {
             //DO NOTHING
         }
-
     }
 
-    private val fromCurrencyListener = object : AdapterView.OnItemSelectedListener {
+    private val fromCurrencySpinnerListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
             viewModel.fromCurrencySpinnerChanged(position)
         }
@@ -90,7 +92,7 @@ class GoldPriceFragment : Fragment() {
         }
     }
 
-    private val toCurrencyListener = object : AdapterView.OnItemSelectedListener {
+    private val toCurrencySpinnerListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
             viewModel.toCurrencySpinnerChanged(position)
         }
@@ -139,28 +141,6 @@ class GoldPriceFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[GoldPriceViewModel::class.java]
 
-        /*val calendar = Calendar.getInstance()
-        val date = calendar.timeInMillis.times(1682442320 / 1000)*/
-
-        /*val date = LocalDateTime.ofInstant(
-            Instant.ofEpochSecond(1682794320),
-            ZoneId.systemDefault()
-        )*/
-
-        /*val formattedDate = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm").format(date)*/
-
-        /*binding.textViewTitle.text = formattedDate.toString()*/
-
-//        binding.editTextFrom.doOnTextChanged { text, start, before, count ->
-//            val newValue = if (text.isNullOrBlank()) "" else text.toString()
-//            viewModel.editTextFromChanged(newValue)
-//        }
-//
-//        binding.editTextUnit.doOnTextChanged { text, start, before, count ->
-//            val newValue = if (text.isNullOrBlank()) "" else text.toString()
-//            viewModel.editTextUnitChanged(newValue)
-//        }
-
         binding.editTextFrom.addTextChangedListener(editTextFromListener)
         binding.editTextTo.addTextChangedListener(editTextToListener)
 
@@ -168,7 +148,12 @@ class GoldPriceFragment : Fragment() {
         binding.editTextPrice.addTextChangedListener(editTextPriceListener)
 
         binding.buttonUpdate.setOnClickListener {
-            viewModel.buttonUpdateClicked()
+
+            if (!viewModel.buttonUpdateClicked()) {
+                if (!viewModel.checkGoldPriceForNull()) {
+                    showNegativeDialog()
+                }
+            }
         }
 
         viewModel.listCurrency.observe(viewLifecycleOwner) {
@@ -181,6 +166,12 @@ class GoldPriceFragment : Fragment() {
 
         viewModel.allUnit.observe(viewLifecycleOwner) {
             setupUnitList(it)
+        }
+
+        viewModel.lastUpdateDate.observe(viewLifecycleOwner) {
+            if (it != binding.textViewDate.text) {
+                binding.textViewDate.text = it
+            }
         }
 
         viewModel.textCurrencyFrom.observe(viewLifecycleOwner) {
@@ -246,8 +237,31 @@ class GoldPriceFragment : Fragment() {
         }
 
         viewModel.goldPrice.observe(viewLifecycleOwner) {
-            it?.let {
+            if (it != null) {
                 viewModel.goldPriceChanged()
+            }
+        }
+
+        viewModel.goldPriceState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is GoldPriceState.NoData -> {
+                    binding.textViewDate.text = "NO DATA"
+                    binding.priceProgress.isVisible = false
+                    binding.shield1.isVisible = true
+                    binding.shield2.isVisible = true
+                }
+                is GoldPriceState.Loading -> {
+                    binding.priceProgress.isVisible = true
+                }
+                is GoldPriceState.Success -> {
+                    binding.priceProgress.isVisible = false
+                    binding.shield1.isVisible = false
+                    binding.shield2.isVisible = false
+                }
+                is GoldPriceState.Error -> {
+                    binding.priceProgress.isVisible = false
+                    showFailedDialog()
+                }
             }
         }
     }
@@ -260,9 +274,9 @@ class GoldPriceFragment : Fragment() {
             list
         )
         binding.usdToSpinner.adapter = adapterCurrency
-        binding.usdToSpinner.onItemSelectedListener = toCurrencyListener
+        binding.usdToSpinner.onItemSelectedListener = toCurrencySpinnerListener
         binding.usdFromSpinner.adapter = adapterCurrency
-        binding.usdFromSpinner.onItemSelectedListener = fromCurrencyListener
+        binding.usdFromSpinner.onItemSelectedListener = fromCurrencySpinnerListener
         binding.priceSpinner.adapter = adapterCurrency
         binding.priceSpinner.onItemSelectedListener = priceCurrencySpinnerListener
     }
@@ -287,6 +301,20 @@ class GoldPriceFragment : Fragment() {
         )
         binding.unitSpinner.adapter = adapterUnit
         binding.unitSpinner.onItemSelectedListener = unitSpinnerListener
+    }
+
+    private fun showNegativeDialog() {
+        val availableTime = viewModel.getDateForDialog()
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("New data will be available\non $availableTime")
+        builder.show()
+    }
+
+    private fun showFailedDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Failed to get data")
+        builder.setMessage("Check internet connection")
+        builder.show()
     }
 
 

@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.weightofring.data.network.GoldPriceApi
 import com.example.weightofring.domain.model.GoldPriceForUi
 import com.example.weightofring.utils.Constants.Companion.BASE_CURRENCY
+import java.time.ZonedDateTime
 
 @Entity
 data class GoldPriceEntity(
@@ -13,6 +14,7 @@ data class GoldPriceEntity(
     val success: Boolean,
     val timestamp: Long,
     val base: String,
+    val updateTime: Long,
     //metal
     val gold: Double,
     val silver: Double,
@@ -34,6 +36,7 @@ data class GoldPriceEntity(
                 success = goldPriceApi.success,
                 timestamp = goldPriceApi.timestamp,
                 base = goldPriceApi.base,
+                updateTime = getLastUpdateTime(),
                 gold = goldPriceApi.rates.XAU,
                 silver = goldPriceApi.rates.XAG,
                 platinum = goldPriceApi.rates.XPT,
@@ -53,6 +56,7 @@ data class GoldPriceEntity(
             if (goldPriceEntity == null) return null
             return GoldPriceForUi(
                 timestamp = goldPriceEntity.timestamp,
+                updateTime = goldPriceEntity.updateTime,
                 metal = mutableListOf(
                     goldPriceEntity.gold,
                     goldPriceEntity.silver,
@@ -71,6 +75,10 @@ data class GoldPriceEntity(
                     goldPriceEntity.united_arab_emirates_dirham
                 )
             )
+        }
+
+        private fun getLastUpdateTime(): Long {
+            return ZonedDateTime.now().toEpochSecond()
         }
     }
 }

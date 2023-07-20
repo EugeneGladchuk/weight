@@ -9,6 +9,7 @@ object PriceRepositoryFactory {
     private var repository: PriceRepository? = null
 
     fun getPriceRepository(app: Application): PriceRepository {
+
         if (repository == null) {
             repository = PriceRepositoryImpl(app)
 

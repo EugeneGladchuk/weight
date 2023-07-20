@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="7dp"
             android:layout_marginEnd="5dp"
             app:cardBackgroundColor="@color/card_view"
             app:cardCornerRadius="7dp"
@@ -87,9 +87,11 @@
 
                 <ImageView
                     android:id="@+id/imageViewButtonRing"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ring_button_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/ring_button"
+                    android:layout_margin="5dp"
+                    android:alpha="0.3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -103,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="7dp"
             android:layout_marginEnd="5dp"
             app:cardBackgroundColor="@color/card_view"
             app:cardCornerRadius="7dp"
@@ -144,9 +146,11 @@
 
                 <ImageView
                     android:id="@+id/imageViewButtonGem"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/gem_button_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/gem_button"
+                    android:layout_margin="5dp"
+                    android:alpha="0.3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
@@ -161,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="7dp"
             android:layout_marginBottom="5dp"
             app:cardBackgroundColor="@color/card_view"
             app:cardCornerRadius="7dp"
@@ -203,9 +207,11 @@
 
                 <ImageView
                     android:id="@+id/imageViewButtonPrice"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/price_image_button"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/price_button"
+                    android:layout_margin="5dp"
+                    android:alpha="0.3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>

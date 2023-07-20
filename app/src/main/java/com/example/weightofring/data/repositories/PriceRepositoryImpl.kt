@@ -1,8 +1,8 @@
 package com.example.weightofring.data.repositories
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.example.weightofring.data.database.AppDatabase
 import com.example.weightofring.data.database.goldprice.GoldPriceEntity
@@ -11,6 +11,7 @@ import com.example.weightofring.data.network.PriceApi
 import com.example.weightofring.domain.model.GoldPriceForUi
 import com.example.weightofring.domain.reposytories.PriceRepository
 import com.example.weightofring.utils.Constants.Companion.API_KEY
+
 
 class PriceRepositoryImpl(application: Application): PriceRepository {
 
@@ -29,7 +30,6 @@ class PriceRepositoryImpl(application: Application): PriceRepository {
             GoldPriceEntity.mapToGoldPriceForUi(it)
         }
     }
-
 
     private suspend fun saveLatestPrice(goldPriceApi: GoldPriceApi) {
         db.goldPriceDao().insertLatestGoldPrice(GoldPriceEntity.mapFromGoldPrice(goldPriceApi))
