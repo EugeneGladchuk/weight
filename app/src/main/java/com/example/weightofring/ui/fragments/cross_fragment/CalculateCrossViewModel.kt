@@ -4,10 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.weightofring.domain.use_case.CalculateCrossWeightUseCase
 import com.example.weightofring.ui.fragments.cross_fragment.model.TypeCross
 import com.example.weightofring.ui.fragments.ring_fragment.model.DensityGoldEnum
 
 class CalculateCrossViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val calculateCrossWeightUseCase = CalculateCrossWeightUseCase()
 
     data class CrossEditTextState(
         val text: String,
@@ -69,7 +72,28 @@ class CalculateCrossViewModel(application: Application) : AndroidViewModel(appli
             _rayWidth.value = _rayWidth.value?.copy(error = true)
         }
 
+        val typeMetal = _typeMetal.value ?: throw Throwable("INVALID_SIZE")
+        val result = when(_typeCross.value) {
+            TypeCross.SQUARE -> calculateCrossWeightUseCase.calculateSquareCross(lengthDouble, widthDouble, thicknessDouble, rayWidthDouble, typeMetal)
+            else -> calculateCrossWeightUseCase.calculateRoundCross(lengthDouble, widthDouble, thicknessDouble, typeMetal)
+        }
 
+        when (_typeCross.value) {
+            TypeCross.SQUARE -> {
+                if ( _length.value?.error == true || _width.value?.error == true || _thickness.value?.error == true || _rayWidth.value?.error == true) {
+                    _result.value = 0.0
+                } else {
+                    _result.value = result
+                }
+            }
+            else -> {
+                if ( _length.value?.error == true || _width.value?.error == true || _thickness.value?.error == true ) {
+                    _result.value = 0.0
+                } else {
+                    _result.value = result
+                }
+            }
+        }
     }
 
     fun lengthTextChanged(length: String) {

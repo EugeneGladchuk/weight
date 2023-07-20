@@ -151,8 +151,8 @@ class CalculateCrossFragment : Fragment() {
         }
 
         when (newTypeCross) {
-            TypeCross.SQUARE -> binding.exampleImage.setImageResource(R.drawable.classic_ring)
-            TypeCross.ROUND -> binding.exampleImage.setImageResource(R.drawable.european_ring)
+            TypeCross.SQUARE -> binding.exampleImage.setImageResource(R.drawable.squarecross)
+            TypeCross.ROUND -> binding.exampleImage.setImageResource(R.drawable.roundcross)
         }
     }
 

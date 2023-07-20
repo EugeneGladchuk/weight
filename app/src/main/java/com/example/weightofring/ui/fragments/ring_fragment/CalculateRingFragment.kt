@@ -160,8 +160,8 @@ class CalculateRingFragment : Fragment() {
         }
 
         when (newTypeRing) {
-            TypeRing.CLASSIC -> binding.exampleImage.setImageResource(R.drawable.classic_ring)
-            TypeRing.EUROPEAN -> binding.exampleImage.setImageResource(R.drawable.european_ring)
+            TypeRing.CLASSIC -> binding.exampleImage.setImageResource(R.drawable.classring)
+            TypeRing.EUROPEAN -> binding.exampleImage.setImageResource(R.drawable.euroring)
         }
     }
 
