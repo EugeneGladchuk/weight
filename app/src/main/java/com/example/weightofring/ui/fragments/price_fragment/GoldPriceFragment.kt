@@ -245,7 +245,7 @@ class GoldPriceFragment : Fragment() {
         viewModel.goldPriceState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is GoldPriceState.NoData -> {
-                    binding.textViewDate.text = "NO DATA"
+                    binding.textViewDate.text = "НЕТ ДАННЫХ"
                     binding.priceProgress.isVisible = false
                     binding.shield1.isVisible = true
                     binding.shield2.isVisible = true
@@ -306,14 +306,14 @@ class GoldPriceFragment : Fragment() {
     private fun showNegativeDialog() {
         val availableTime = viewModel.getDateForDialog()
         val builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("New data will be available\non $availableTime")
+        builder.setMessage("Новые данные будут доступны\n$availableTime")
         builder.show()
     }
 
     private fun showFailedDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Failed to get data")
-        builder.setMessage("Check internet connection")
+        builder.setTitle("Не удалось получить данные")
+        builder.setMessage("Проверьте интернет подключение")
         builder.show()
     }
 

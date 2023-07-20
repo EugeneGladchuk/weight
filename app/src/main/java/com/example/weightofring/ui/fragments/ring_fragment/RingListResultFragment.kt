@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weightofring.RingResultListAdapter
 import com.example.weightofring.databinding.FragmentRingListResultBinding
 
 class RingListResultFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.weightofring
+package com.example.weightofring.ui.fragments.ring_fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -58,7 +58,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:textSize="18sp"
-                                android:text="Last update:"
+                                android:text="Последнее обновление:"
                                 android:layout_weight="1.8"/>
 
                             <TextView
@@ -142,7 +142,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="EXCHANGE RATE"
+                            android:text="КУРС ВАЛЮТ"
+                            android:textStyle="bold"
                             android:textColor="@color/active_button"
                             android:textSize="23sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -178,7 +179,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="FROM"
+                                android:text="ИЗ"
                                 android:textColor="@color/active_button"
                                 android:textSize="18sp" />
 
@@ -253,7 +254,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="TO"
+                                android:text="В"
                                 android:textColor="@color/active_button"
                                 android:textSize="18sp" />
 
@@ -351,7 +352,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="METAL PRICE"
+                            android:text="ЦЕНА НА МЕТАЛЛ"
+                            android:textStyle="bold"
                             android:textColor="@color/active_button"
                             android:textSize="23sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -386,9 +388,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="METAL"
+                                android:text="МЕТАЛЛ"
                                 android:textColor="@color/active_button"
-                                android:textSize="20sp" />
+                                android:textSize="18sp" />
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
@@ -434,7 +436,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="UNIT"
+                                android:text="ЕД.ИЗМ."
                                 android:textColor="@color/active_button"
                                 android:textSize="18sp" />
 
@@ -509,7 +511,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="CURRENCY"
+                                android:text="ВАЛЮТА"
                                 android:textColor="@color/active_button"
                                 android:textSize="18sp" />
 
