@@ -1,5 +1,7 @@
 package com.example.weightofring.domain.model
 
+import com.example.weightofring.ui.fragments.calculate_wire_fragment.model.TypeCalculateForWire
+import com.example.weightofring.ui.fragments.calculate_wire_fragment.model.TypeCalculateWireEnum
 import com.example.weightofring.ui.fragments.gem_fragment.model.CutFormEnum
 import com.example.weightofring.ui.fragments.gem_fragment.model.GemParametersEnum
 import com.example.weightofring.ui.fragments.price_fragment.model.*
@@ -27,6 +29,12 @@ object Lists {
     val listForUnitSpinner: List<UnitEnum> = listOf(
         UnitEnum.OUNCE_TROY,
         UnitEnum.GRAM
+    )
+
+    val listForSpinnerWire: MutableList<TypeCalculateForWire> = mutableListOf(
+        TypeCalculateForWire(typeCalculateName = "ДЛИНА ПРОВОЛОКИ", typeCalculateWireEnum = TypeCalculateWireEnum.LENGTH),
+        TypeCalculateForWire(typeCalculateName = "ДИАМЕТР ПРОВОЛОКИ", typeCalculateWireEnum = TypeCalculateWireEnum.DIAMETER),
+        TypeCalculateForWire(typeCalculateName = "ВЕС ЗАГОТОВКИ", typeCalculateWireEnum = TypeCalculateWireEnum.WEIGHT)
     )
 
     val listCurrency: MutableList<CurrencyForSpinner> = mutableListOf(

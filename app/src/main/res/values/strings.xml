@@ -25,5 +25,8 @@
     <string name="WidthTextView">ШИРИНА</string>
     <string name="DepthTextView">ВЫСОТА</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="length_description">Введите вес вашей заготовки и диаметр фильеры, чтобы узнать длину готовой проволоки</string>
+    <string name="diameter_description">Введите вес вашей заготовки и необходимую длину проволоки, чтобы узнать какой диаметр проволоки получится</string>
+    <string name="weight_description">Введите необходимый диаметр и длину проволоки, чтобы узнать вес требуемой заготовки</string>
 
 </resources>

@@ -10,6 +10,7 @@ import com.example.weightofring.ui.fragments.gem_fragment.CalculateGemFragment.C
 import com.example.weightofring.ui.fragments.ring_fragment.CalculateRingFragment.Companion.RING
 import com.example.weightofring.ui.fragments.price_fragment.GoldPriceFragment.Companion.PRICE
 import com.example.weightofring.databinding.FragmentStartBinding
+import com.example.weightofring.ui.fragments.calculate_wire_fragment.CalculateWireFragment
 import com.example.weightofring.ui.fragments.cross_fragment.CalculateCrossFragment
 import com.example.weightofring.ui.fragments.gem_fragment.CalculateGemFragment
 import com.example.weightofring.ui.fragments.price_fragment.GoldPriceFragment
@@ -19,7 +20,6 @@ import com.example.weightofring.ui.fragments.ring_fragment.CalculateRingFragment
 class StartFragment : Fragment() {
 
     private lateinit var binding: FragmentStartBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +54,15 @@ class StartFragment : Fragment() {
             activity?.run {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, CalculateCrossFragment.newInstance())
+                    .addToBackStack(GEM)
+                    .commit()
+            }
+        }
+
+        binding.buttonWire.setOnClickListener {
+            activity?.run {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, CalculateWireFragment.newInstance())
                     .addToBackStack(GEM)
                     .commit()
             }

@@ -77,6 +77,8 @@ data class GoldPriceEntity(
             )
         }
 
+        //TODO сделать текущее время устройства
+
         private fun getLastUpdateTime(): Long {
             return ZonedDateTime.now().toEpochSecond()
         }
